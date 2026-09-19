@@ -1,0 +1,3188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Módulo Integrado</title>
+
+  <!-- Tailwind CSS 3.4.17 & Plotly.js -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.plot.ly/plotly-2.30.0.min.js" charset="utf-8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+
+  <style>
+    /* Carga de fuentes personalizadas generales */
+    @font-face {
+      font-family: 'Gotham Light';
+      src: url('https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@d2dd6c46f3554fec991515a2530f77f5aa8ab680/Gotham-Light.otf') format('opentype');
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Sugo';
+      src: url('https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/Sugo-Pro-Display-Light-trial.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gotham Black';
+      src: url('https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@f7f44e623ba9b9405012b7fe01454369a7edba3c/Gotham-Black.otf') format('opentype');
+      font-weight: 900;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Gotham Bold';
+      src: url('https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@0fa3cc3b3be0fbeb1c71ffab2eee999b61afd255/Gotham-Bold.otf') format('opentype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      font-family: 'Gotham Light', sans-serif;
+      color: #1a1a1a;
+    }
+
+    .font-sugo { font-family: 'Sugo', sans-serif; text-transform: uppercase; }
+    .font-black, .gotham-black-title, .font-gotham-black { font-family: 'Gotham Black', sans-serif; }
+    .font-gotham-bold { font-family: 'Gotham Bold', sans-serif; }
+    .font-gotham-light { font-family: 'Gotham Light', sans-serif; }
+
+    /* Estilos ALFA_DEMO_5 (Página 1: Inicio) */
+    .container-header-demo5 {
+      max-width: 850px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 20px 0 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .character-header-demo5 {
+      width: 135px;
+      height: auto;
+      margin: 0 auto 20px auto;
+      display: block;
+    }
+
+    .subtitle-top-demo5 {
+      font-family: 'Gotham Light', sans-serif;
+      font-size: 28px;
+      color: #b0005d;
+      letter-spacing: 0.5px;
+      margin: 0 0 8px 0;
+      line-height: 1.1;
+      font-weight: bold;
+    }
+
+    .main-title-demo5 {
+      font-family: 'Sugo', sans-serif;
+      font-size: 72px;
+      color: #000000;
+      margin: 0;
+      line-height: 1.0;
+      letter-spacing: -0.5px;
+    }
+
+    .underline-text-demo5 {
+      position: relative;
+      display: inline-block;
+    }
+
+    .underline-text-demo5::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 4px;
+      background-color: #5e0047;
+      border-radius: 2px;
+    }
+
+    .content-section-demo5 {
+      font-family: 'Gotham Light', sans-serif;
+      font-size: 19px;
+      line-height: 1.5;
+      color: #333333;
+    }
+
+    .highlight-purple-demo5 {
+      color: #70004f;
+      font-family: 'Gotham Black', sans-serif;
+      font-weight: bold;
+    }
+
+    /* Estilos ALFA_DEMO_6 (Página 2: Ruta Formativa) */
+    .main-title-demo6 {
+      font-family: 'Sugo', sans-serif;
+      font-size: 64px;
+      color: #000000;
+      margin: 0 0 24px 0;
+      line-height: 1;
+    }
+
+    /* Estilos ALFA_DEMO_1 (Página 3: Distribución Normal) y Encabezados Comunes */
+    .container-header-demo1 {
+      max-width: 850px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 20px 0 20px;
+      box-sizing: border-box;
+    }
+
+    .top-row-demo1 {
+      display: flex;
+      align-items: flex-start;
+      gap: 30px;
+    }
+
+    .character-header-demo1 {
+      width: 135px;
+      height: auto;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    .title-group-demo1 {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .subtitle-top-demo1 {
+      font-family: 'Gotham Light', sans-serif;
+      font-size: 32px;
+      color: #1a1a1a;
+      letter-spacing: 0.5px;
+      margin: 0 0 4px 0;
+      line-height: 1.1;
+    }
+
+    .main-title-demo1 {
+      font-family: 'Sugo', sans-serif;
+      font-size: 82px;
+      color: #000000;
+      margin: 0;
+      line-height: 0.95;
+      letter-spacing: -0.5px;
+    }
+
+    .bottom-row-demo1 {
+      margin-top: 35px;
+      margin-bottom: 30px;
+    }
+
+    .question-text-demo1 {
+      font-family: 'Gotham Black', sans-serif;
+      font-size: 42px;
+      color: #000000;
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .underline-text-demo1 {
+      position: relative;
+      display: inline-block;
+    }
+
+    .underline-text-demo1::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 4px;
+      background-color: #4a154b;
+      border-radius: 2px;
+    }
+
+    .content-section-demo1 {
+      font-family: 'Gotham Light', sans-serif;
+      font-size: 20px;
+      line-height: 1.45;
+      color: #333333;
+    }
+
+    .content-section-demo1 p {
+      margin: 0 0 24px 0;
+    }
+
+    .content-section-demo1 strong {
+      font-family: 'Gotham Black', sans-serif;
+      font-weight: bold;
+    }
+
+    .card-fishtik {
+      border: 3.5px solid #d45b53;
+      border-radius: 28px;
+      font-family: 'Gotham Light', sans-serif;
+    }
+
+    .card-krustik {
+      border: 3px solid #d91438;
+      border-radius: 20px;
+      font-family: 'Gotham Light', sans-serif;
+    }
+
+    .equation-text {
+      font-family: 'Gotham Light', sans-serif;
+      color: #333333;
+    }
+
+    .equation-symbol {
+      font-family: 'Gotham Black', sans-serif;
+      font-weight: bold;
+      color: #000000;
+    }
+
+    .highlight-bold {
+      font-family: 'Gotham Black', sans-serif;
+      font-weight: bold;
+      color: #111827;
+    }
+
+    .perspective {
+      perspective: 1000px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      border: 1px solid #f0f0f0;
+      background-color: #ffffff;
+    }
+
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+
+    .plotly-graph-div .cursor-pointer {
+      cursor: pointer;
+    }
+
+    /* Estilos ALFA_DEMO_2 y ALFA_DEMO_3 (Carruseles, Badges, Botones) */
+    .carousel-card {
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid #f0f0f0;
+      background-color: #ffffff;
+    }
+
+    .arrow-btn {
+      width: 58px;
+      height: 28px;
+      border: 2px solid #000000;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      background: transparent;
+    }
+
+    .arrow-btn:hover {
+      background-color: #000000;
+      color: #ffffff;
+    }
+
+    .badge-purple {
+      background-color: #4a0033;
+      color: #ffffff;
+      font-family: 'Gotham Black', sans-serif;
+      border-radius: 6px;
+      padding: 10px 24px;
+      display: inline-block;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      outline: none;
+      box-shadow: 0 4px 10px rgba(74, 0, 51, 0.25);
+    }
+
+    .badge-purple:hover {
+      background-color: #6a0049;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(74, 0, 51, 0.35);
+    }
+
+    .badge-purple:active {
+      transform: translateY(0);
+    }
+
+    .btn-custom-action {
+      background-color: #5e0047;
+      color: #ffffff;
+      font-family: 'Gotham Black', sans-serif;
+      border: none;
+      padding: 14px 28px;
+      font-size: 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(94, 0, 71, 0.35);
+      transition: all 0.2s ease-in-out;
+    }
+
+    .btn-custom-action:hover {
+      background-color: #480036;
+      box-shadow: 0 6px 20px rgba(94, 0, 71, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-custom-action:active {
+      transform: translateY(1px);
+    }
+
+    /* Estilos ALFA_DEMO_4 (Simulador) */
+    .btn-purple-option {
+      background-color: #5e0047;
+      color: #ffffff;
+      font-family: 'Gotham Black', sans-serif;
+      font-size: 18px;
+      border-radius: 12px;
+      padding: 16px 20px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(94, 0, 71, 0.25);
+      transition: all 0.2s ease-in-out;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-purple-option:hover {
+      background-color: #450034;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(94, 0, 71, 0.35);
+    }
+
+    .modal-card-simulador {
+      border-radius: 28px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      border: 1px solid #f0f0f0;
+      font-family: 'Gotham Light', sans-serif;
+    }
+
+    .close-btn-simulador {
+      width: 42px;
+      height: 42px;
+      background-color: #a8b5ce;
+      color: #ffffff;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Gotham Black', sans-serif;
+      font-size: 20px;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .close-btn-simulador:hover {
+      background-color: #8fa0c0;
+      transform: scale(1.05);
+    }
+
+    .quiz-card {
+      background-color: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      border: 1px solid #f0f0f0;
+      padding: 32px;
+    }
+
+    .option-btn {
+      background-color: #d1b8ca;
+      color: #1a1a1a;
+      font-family: 'Gotham Light', sans-serif;
+      font-size: 16px;
+      border-radius: 16px;
+      padding: 16px 20px;
+      text-align: left;
+      width: 100%;
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    .option-btn:hover {
+      background-color: #c4a7bc;
+    }
+
+    .option-btn.selected {
+      border-color: #05004e;
+      background-color: #b898af;
+      font-weight: bold;
+    }
+
+    .feedback-card-correct {
+      background-color: #d1fbf0;
+      border-radius: 20px;
+      padding: 28px;
+      position: relative;
+    }
+
+    .feedback-card-incorrect {
+      background-color: #ffe6eb;
+      border-radius: 20px;
+      padding: 24px;
+      position: relative;
+    }
+
+    /* Estilos ALFA_DEMO_10 (Rompecabezas) */
+    .puzzle-piece { transition: all 0.5s cubic-bezier(0.4,0,0.2,1); background-repeat: no-repeat; }
+    .puzzle-piece.locked { filter: grayscale(1) brightness(0.7); opacity: 0.4; cursor: not-allowed; }
+    .puzzle-piece.active { filter: grayscale(1) brightness(0.2); opacity: 1; cursor: pointer; border: 2px solid #c2005d; }
+    .puzzle-piece.active:hover { filter: grayscale(0.5) brightness(0.4); transform: scale(1.03); }
+    .puzzle-piece.unlocked { filter: none; opacity: 1; transform: scale(1); border: none; }
+    .puzzle-piece.just-unlocked { animation: popIn 0.6s ease; }
+    
+    @keyframes popIn { 0%{transform:scale(0.5) rotate(-10deg);opacity:0} 50%{transform:scale(1.15) rotate(3deg)} 100%{transform:scale(1) rotate(0)} }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)} }
+    .shake { animation: shake 0.4s ease; }
+    @keyframes celebrate { 0%{transform:scale(1)} 50%{transform:scale(1.03)} 100%{transform:scale(1)} }
+    .celebrate { animation: celebrate 1s ease infinite; }
+    .progress-fill { transition: width 0.5s ease; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .fade-up { animation: fadeUp 0.4s ease forwards; }
+    .modal-backdrop { backdrop-filter: blur(4px); }
+    .check-badge { position:absolute; top:4px; right:4px; background:rgba(16,185,129,0.9); border-radius:9999px; width:22px; height:22px; display:flex; align-items:center; justify-content:center; font-size:13px; }
+
+    /* Estilos ALFA_DEMO_7 (Integremos los puntos) */
+    .main-title-demo7 {
+      font-family: 'Sugo', sans-serif;
+      font-size: 58px;
+      color: #000000;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .textarea-custom {
+      border: 2px solid #a31d3d;
+      border-radius: 16px;
+      font-family: 'Gotham Light', sans-serif;
+      font-size: 18px;
+      line-height: 1.5;
+      color: #333333;
+      padding: 20px;
+      width: 100%;
+      outline: none;
+      resize: vertical;
+      min-height: 140px;
+      transition: border-color 0.2s ease;
+    }
+
+    .textarea-custom:focus {
+      border-color: #7a122a;
+      box-shadow: 0 0 0 3px rgba(163, 29, 61, 0.15);
+    }
+
+    .btn-dark-navy {
+      background-color: #05004e;
+      color: #ffffff;
+      font-family: 'Gotham Black', sans-serif;
+      font-size: 15px;
+      border-radius: 9999px;
+      padding: 10px 24px;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-dark-navy:hover {
+      background-color: #0a0080;
+      transform: translateY(-1px);
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+      user-select: none;
+      background-color: #ffffff;
+      padding: 12px;
+      border-radius: 12px;
+      transition: background-color 0.15s ease;
+    }
+
+    .checkbox-container:hover {
+      background-color: #f9f9fb;
+    }
+
+    .custom-checkbox {
+      width: 22px;
+      height: 22px;
+      border: 2px solid #5e0047;
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      background-color: #ffffff;
+    }
+
+    .checkbox-container.checked .custom-checkbox {
+      background-color: #5e0047;
+      border-color: #5e0047;
+    }
+
+    .custom-checkbox svg {
+      display: none;
+      width: 14px;
+      height: 14px;
+      stroke: #ffffff;
+      stroke-width: 3;
+    }
+
+    .checkbox-container.checked .custom-checkbox svg {
+      display: block;
+    }
+
+    /* Estilos ALFA_DEMO_8_2 (Referencias) */
+    .main-title-ref {
+      font-family: 'Sugo', sans-serif;
+      font-size: 72px;
+      color: #000000;
+      margin: 0;
+      line-height: 0.95;
+      letter-spacing: -0.5px;
+    }
+
+    .underline-text-ref {
+      position: relative;
+      display: inline-block;
+    }
+
+    .underline-text-ref::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 100%;
+      height: 5px;
+      background-color: #5e0047;
+      border-radius: 3px;
+    }
+
+    .reference-item {
+      font-family: 'Gotham Light', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #4a4a4a;
+      padding-left: 24px;
+      text-indent: -24px;
+      word-break: break-word;
+    }
+
+    .reference-link {
+      color: #4a4a4a;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .reference-link:hover {
+      color: #5e0047;
+      text-decoration: underline;
+    }
+
+    .btn-copy-purple {
+      background-color: #a10054;
+      color: #ffffff;
+      font-family: 'Gotham Black', sans-serif;
+      font-size: 18px;
+      border-radius: 9999px;
+      padding: 14px 32px;
+      box-shadow: 0 4px 14px rgba(161, 0, 84, 0.3);
+      transition: all 0.2s ease-in-out;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-copy-purple:hover {
+      background-color: #800042;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(161, 0, 84, 0.4);
+    }
+
+    .btn-copy-purple:active {
+      transform: translateY(0);
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: #05004e;
+      color: #ffffff;
+      font-family: 'Gotham Black', sans-serif;
+      font-size: 15px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Estilos UI Navegación basados en la imagen de referencia */
+    .btn-nav-prev {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 12px 32px;
+      border-radius: 9999px;
+      background: #ffffff;
+      border: 3px solid #9c005d;
+      color: #4a0033;
+      font-family: 'Gotham Black', sans-serif;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-nav-prev:hover {
+      background-color: #fcf0f5;
+    }
+
+    .btn-nav-next {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 12px 32px;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #c4005d 0%, #520038 100%);
+      color: #ffffff;
+      border: none;
+      font-family: 'Gotham Black', sans-serif;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(160, 0, 80, 0.25);
+    }
+
+    .btn-nav-next:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+
+    .btn-hamburger {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-hamburger:hover {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    }
+
+    .hamburger-line {
+      width: 24px;
+      height: 3px;
+      background-color: #0b1340;
+      border-radius: 2px;
+    }
+
+    /* Ocultar secciones dinámicas */
+    .page-section {
+      display: none;
+    }
+    .page-section.active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen">
+
+  <!-- Menú Flotante (Esquina Superior Derecha) -->
+  <div class="fixed top-6 right-6 z-50">
+    <button id="hamburger-btn" class="btn-hamburger" aria-label="Abrir Menú">
+      <div class="hamburger-line"></div>
+      <div class="hamburger-line"></div>
+      <div class="hamburger-line"></div>
+    </button>
+
+    <!-- Menú Desplegable con las 9 páginas ordenadas -->
+    <div id="nav-dropdown" class="hidden absolute right-0 mt-3 w-60 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
+      <ul class="py-2">
+        <li>
+          <button onclick="goToPage(1)" class="w-full text-left px-5 py-3 hover:bg-purple-50 text-gray-800 font-bold transition-colors">
+            Inicio
+          </button>
+        </li>
+        <li>
+          <button onclick="goToPage(2)" class="w-full text-left px-5 py-3 hover:bg-purple-50 text-gray-800 font-bold transition-colors">
+            Ruta Formativa
+          </button>
+        </li>
+        <li>
+          <button onclick="goToPage(3)" class="w-full text-left px-5 py-3 hover:bg-purple-50 text-gray-800 font-bold transition-colors">
+            Distribución Normal
+          </button>
+        </li>
+        <li>
+          <button onclick="goToPage(4)" class="w-full text-left px-5 py-3 hover:bg-purple-50 text-gray-800 font-bold transition-colors">
+            Pruebas de Normalidad
+          </button>
+        </li>
+        <li>
+          <button onclick="goToPage(5)" class="w-full text-left px-5 py-3 hover:bg-purple-50 text-gray-800 font-bold transition-colors">
+            TLC
+          </button>
+        </li>
+        <li>
+          <button onclick="goToPage(6)" class="w-full text-left px-5 py-3 hover:bg-purple-50 text-gray-800 font-bold transition-colors">
+            Rompecabezas
+          </button>
+        </li>
+        <li>
+          <button onclick="goToPage(7)" class="w-full text-left px-5 py-3 hover:bg-purple-50 text-gray-800 font-bold transition-colors">
+            Integremos los puntos
+          </button>
+        </li>
+        <li>
+          <button onclick="goToPage(8)" class="w-full text-left px-5 py-3 hover:bg-purple-50 text-gray-800 font-bold transition-colors">
+            Simulador
+          </button>
+        </li>
+        <li>
+          <button onclick="goToPage(9)" class="w-full text-left px-5 py-3 hover:bg-purple-50 text-gray-800 font-bold transition-colors">
+            Referencias
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 1: ALFA_DEMO_5 (Inicio) -->
+  <div id="page-1" class="page-section active pb-24">
+    <div class="container-header-demo5">
+      <img 
+        src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/Cansada_Testik.svg" 
+        alt="Personaje Cansada Testik" 
+        class="character-header-demo5"
+      />
+      
+      <p class="subtitle-top-demo5">Unidad III &middot; Fundamentos de inferencia</p>
+      <h1 class="main-title-demo5">
+        ¿Cuál es el punto... de las <span class="underline-text-demo5">distribuciones</span>?
+      </h1>
+    </div>
+
+    <div class="max-w-3xl mx-auto px-4 sm:px-8 my-12 content-section-demo5 space-y-6">
+      <p>
+        Seguramente has observado que en algunos artículos científicos los autores reportan primero la distribución de los datos antes de elegir las pruebas estadísticas.
+      </p>
+
+      <p>
+        A simple vista, este procedimiento puede parecer un requisito más...<br>
+        Sin embargo, <span class="highlight-purple-demo5">¿por qué los investigadores necesitan comprobar la distribución de los datos antes de elegir una prueba estadística? ¿Cómo influye esta decisión en las conclusiones que pueden extraer de sus resultados?</span>
+      </p>
+
+      <p>
+        Gran parte del trabajo del psicólogo implica interpretar resultados de investigación para fundamentar decisiones profesionales. Al analizar datos de una muestra, los investigadores seleccionan pruebas estadísticas según la distribución de los datos y las condiciones que estas requieren.
+      </p>
+
+      <p>
+        En esta unidad podrás comprender cómo la distribución de los datos permite la elección de pruebas estadísticas y la interpretación de los resultados.
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto px-4 sm:px-8 pt-6 flex justify-end gap-4">
+      <button onclick="goToPage(2)" class="btn-nav-next">
+        Siguiente &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: ALFA_DEMO_6 (Ruta Formativa) -->
+  <div id="page-2" class="page-section min-h-screen p-6 sm:p-12 pb-24">
+    <div class="max-w-4xl mx-auto flex flex-col items-start">
+      <h1 class="main-title-demo6">Ruta formativa</h1>
+
+      <div class="w-full flex justify-center">
+        <img 
+          src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@98a9a73b562e6a8effa19b783627483f539ea3c5/Rutaformativa.svg" 
+          alt="Ruta Formativa Diagrama" 
+          class="w-full h-auto max-w-3xl object-contain select-none"
+        />
+      </div>
+
+      <div class="w-full mt-12 flex justify-between gap-4">
+        <button onclick="goToPage(1)" class="btn-nav-prev">
+          &larr; Atrás
+        </button>
+        <button onclick="goToPage(3)" class="btn-nav-next">
+          Siguiente &rarr;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 3: ALFA_DEMO_1 (Distribución Normal) -->
+  <div id="page-3" class="page-section pb-24">
+    <div class="container-header-demo1">
+      <div class="top-row-demo1">
+        <img 
+          src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/Duda_Blutik.svg" 
+          alt="Personaje Duda Blutik" 
+          class="character-header-demo1"
+        />
+        <div class="title-group-demo1">
+          <p class="subtitle-top-demo1">Conectando los puntos de la...</p>
+          <h1 class="main-title-demo1"><strong>Distribución Normal</strong></h1>
+        </div>
+      </div>
+
+      <div class="bottom-row-demo1">
+        <h2 class="question-text-demo1">
+          ¿Qué tan rápido es <span class="underline-text-demo1">Usain Bolt?</span>
+        </h2>
+      </div>
+
+      <div class="content-section-demo1">
+        <p>
+          Un poco de contexto...<br>
+          En 2009, el jamaicano, Usain Bolt, se adjudicó el récord mundial con un tiempo de 9,58 segundos en 100 metros planos. Conserva el título de <strong>"el hombre más rápido del mundo"</strong> a pesar de haberse retirado en 2017. ¿Crees ganarle?
+        </p>
+
+        <p>
+          Para poder conocer que tan rápido es Usain necesitamos conocer como se <strong>distribuyen</strong> el tiempo de carrera de 100 metros planos.
+        </p>
+      </div>
+    </div>
+
+    <div class="w-full max-w-4xl mx-auto px-4 sm:px-8 relative my-12 sm:my-16">
+      <div class="card-fishtik bg-white pt-8 pb-10 pl-6 sm:pl-10 pr-16 sm:pr-36 text-gray-800 shadow-sm relative">
+        <p class="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed text-left pr-4 sm:pr-10 md:pr-14">
+          Una <span class="highlight-bold">distribución</span> describe cómo se <span class="highlight-bold">comportan</span> los valores de una variable. Su función es representar el patrón general de los datos, mostrando dónde tienden a <span class="highlight-bold">concentrarse</span>, qué tan <span class="highlight-bold">dispersos</span> están y con qué <span class="highlight-bold">frecuencia o probabilidad</span> ocurren los valores posibles.
+        </p>
+
+        <div class="absolute -bottom-20 -right-8 sm:-bottom-24 sm:-right-10 md:-bottom-28 md:-right-12 w-[170px] sm:w-[220px] md:w-[250px] pointer-events-none select-none z-10">
+          <img 
+            src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/concepto_Fishtik.svg" 
+            alt="Personaje Fishtik Concepto" 
+            class="w-full h-auto object-contain block"
+            onerror="this.onerror=null; this.src='https://placehold.co/220x220/d45b53/ffffff?text=Fishtik';"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full max-w-4xl mx-auto px-4 sm:px-8 relative mt-20 sm:mt-24 mb-6">
+      <div class="card-krustik bg-white pt-16 sm:pt-16 pb-8 px-6 sm:px-10 text-gray-800 shadow-sm relative">
+        <div class="absolute -top-14 sm:-top-16 left-0 sm:left-2 w-[340px] sm:w-[440px] md:w-[480px] h-[100px] sm:h-[130px] flex items-center">
+          <img
+            src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/ACP_KRUSTIK.svg"
+            alt="Personaje Media y Desviación"
+            class="w-full h-full object-contain select-none pointer-events-none"
+          />
+          <div class="absolute left-[20%] w-[58%] flex items-center justify-center text-center">
+            <h2 class="text-white text-lg sm:text-2xl md:text-2xl leading-tight tracking-wide select-none" style="font-family: 'Gotham Black', sans-serif;">
+              Población y muestra
+            </h2>
+          </div>
+        </div>
+
+        <p class="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed text-left mt-6 sm:mt-4">
+          Las distribuciones pueden obtenerse de la población (conjunto total de observaciones o registros de la variable de interés) o de una muestra (subconjunto de observaciones de la población). Sin embargo, rara vez es posible acceder a toda la población, por lo que generalmente trabajamos con muestras. Para más información <span class="highlight-bold">consulta el tema de Población y Muestra</span>
+        </p>
+      </div>
+
+      <div class="content-section-demo1 mt-8">
+        <p>
+          Existen diferentes tipos de distribuciones de datos. Una de las más conocidas es la <strong>distribución normal</strong>, que permite describir una amplia variedad de fenómenos.
+        </p>
+      </div>
+    </div>
+
+    <div class="w-full max-w-6xl mx-auto px-4 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 my-16">
+      <div class="flex items-center justify-center gap-3 sm:gap-4 text-center md:text-left text-lg sm:text-xl md:text-2xl leading-tight equation-text py-4">
+        <div>Distribución de<br>probabilidad</div>
+        <div class="equation-symbol text-2xl sm:text-3xl px-1">=</div>
+        <div>valores<br>posibles</div>
+        <div class="equation-symbol text-2xl sm:text-3xl px-1">+</div>
+        <div>probabilidad<br>de cada valor</div>
+      </div>
+
+      <div class="w-full md:w-[580px] relative mt-4 md:mt-0">
+        <div class="card-fishtik bg-white pt-6 pb-8 pl-6 sm:pl-8 pr-16 sm:pr-32 text-gray-800 shadow-sm relative">
+          <p class="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed text-left">
+            La distribución normal es una <span class="highlight-bold">distribución de probabilidad:</span> describe qué valores puede tomar una variable y qué tan probable es que ocurra cada uno de ellos.
+          </p>
+
+          <div class="absolute -bottom-20 -right-8 sm:-bottom-24 sm:-right-10 md:-bottom-28 md:-right-12 w-[160px] sm:w-[200px] md:w-[230px] pointer-events-none select-none z-10">
+            <img
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/concepto_Fishtik.svg"
+              alt="Personaje Fishtik Concepto"
+              class="w-full h-auto object-contain block"
+              onerror="this.onerror=null; this.src='https://placehold.co/220x220/d45b53/ffffff?text=Fishtik';"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full max-w-4xl mx-auto px-4 sm:px-8 relative mt-20 sm:mt-24 mb-16">
+      <div class="card-krustik bg-white pt-16 sm:pt-16 pb-8 px-6 sm:px-10 text-gray-800 shadow-sm relative">
+        <div class="absolute -top-14 sm:-top-16 left-0 sm:left-2 w-[340px] sm:w-[440px] md:w-[480px] h-[100px] sm:h-[130px] flex items-center">
+          <img 
+            src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/ACP_KRUSTIK.svg" 
+            alt="Personaje Media y Desviación" 
+            class="w-full h-full object-contain select-none pointer-events-none"
+          />
+          <div class="absolute left-[20%] w-[58%] flex items-center justify-center text-center">
+            <h2 class="text-white text-lg sm:text-2xl md:text-2xl leading-tight tracking-wide select-none" style="font-family: 'Gotham Black', sans-serif;">
+              Variables continuas y <br />discretas
+            </h2>
+          </div>
+        </div>
+
+        <p class="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed text-left mt-6 sm:mt-4">
+          La distribución normal describe solamente <span class="highlight-bold">variables cuantitativas</span>, tanto continuas como discretas. Las variables continuas pueden tomar cualquier valor dentro de un intervalo, incluidos los decimales, mientras que las discretas toman valores en números enteros. Para más información <span class="highlight-bold">consulta el tema de Tipos de Variables</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-4xl w-full mx-auto text-center px-4 sm:px-8 py-10 my-8">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-black mb-4 leading-tight">
+        ¿Cuál es el punto de conocer la distribución normal?
+      </h1>
+
+      <p class="text-base sm:text-lg text-gray-700 max-w-3xl mx-auto mb-6 leading-relaxed">
+        Imagina que tienes el registro del tiempo empleado para correr 100 metros planos de un grupo de personas.
+      </p>
+
+      <p class="text-base sm:text-lg font-black mb-8">
+        Presiona para revelar más información
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-10">
+        <div class="flip-card perspective h-[420px]" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front flex flex-col items-center justify-center p-6">
+              <h2 class="text-xl sm:text-2xl font-black mb-8">Grupos Pequeños</h2>
+              <svg class="w-10 h-10 text-black animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            </div>
+            <div class="flip-card-back flex flex-col items-center justify-between p-6">
+              <h3 class="text-lg sm:text-xl font-black mb-2">Grupos Pequeños</h3>
+              <p class="text-sm sm:text-base text-gray-700 leading-snug mb-3">
+                Cuando el grupo es pequeño es más fácil observar quien es más rápido y cuál es el tiempo que más se repite
+              </p>
+              <div class="w-full flex-1 flex items-center justify-center">
+                <img src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/Grupo_tiempo.svg" alt="Grupo pequeño con tiempos" class="max-h-[260px] w-full object-contain" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flip-card perspective h-[420px]" onclick="this.classList.toggle('flipped')">
+          <div class="flip-card-inner">
+            <div class="flip-card-front flex flex-col items-center justify-center p-6">
+              <h2 class="text-xl sm:text-2xl font-black mb-8">Grupos muy grandes</h2>
+              <svg class="w-10 h-10 text-black animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            </div>
+            <div class="flip-card-back flex flex-col items-center justify-between p-6">
+              <h3 class="text-lg sm:text-xl font-black mb-2">Grupos muy grandes</h3>
+              <p class="text-sm sm:text-base text-gray-700 leading-snug mb-3">
+                El problema es que cuando el grupo es muy grande es más difícil observarlo en una lista de cientos o miles de datos.
+              </p>
+              <div class="w-full flex-1 flex items-center justify-center">
+                <img src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/grupos_U3_T1-2.svg" alt="Grupo muy grande" class="max-h-[260px] w-full object-contain" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-base sm:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
+        Los científicos se dieron cuenta que muchos fenómenos se acomodan en forma de una curva o campana. Esta forma facilita su interpretación de una manera intuitiva.
+      </p>
+    </div>
+
+    <div class="w-full max-w-4xl mx-auto px-4 sm:px-8 my-16">
+      <h1 class="text-2xl sm:text-3xl font-black text-gray-900 mb-1 leading-snug">
+        Distribución de tiempo en segundos en carrera de 100 metros planos en universitarios
+      </h1>
+      <p class="text-xs sm:text-sm text-gray-500 italic mb-8 leading-relaxed">
+        Datos simulados y exagerados con fines ilustrativos basados en estadísticas del estudio de Rumky, U. H., Khatun, M. M., Ahmed, H., Akter, M. K., & Roy, S. (2025). Comparative Analysis of Sprint Ability in Athletes and Non-Athletes across 10 to 100 Meters. Sports Science & Health Advances, 3(1), 428-434. https://doi.org/10.60081/SSHA.3.1.2025.428-434.*
+      </p>
+
+      <div class="relative mt-12 mb-10">
+        <div class="card-krustik bg-white pt-16 sm:pt-16 pb-8 px-6 sm:px-10 text-gray-800 shadow-sm relative">
+          <div class="absolute -top-14 sm:-top-16 left-0 sm:left-2 w-[340px] sm:w-[440px] md:w-[480px] h-[100px] sm:h-[130px] flex items-center">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/ACP_KRUSTIK.svg" 
+              alt="Personaje Media y Desviación" 
+              class="w-full h-full object-contain select-none pointer-events-none"
+            />
+            <div class="absolute left-[20%] w-[58%] flex items-center justify-center text-center">
+              <h2 class="text-white text-lg sm:text-2xl md:text-2xl leading-tight tracking-wide select-none" style="font-family: 'Gotham Black', sans-serif;">
+                Media y Desviación<br />estandar
+              </h2>
+            </div>
+          </div>
+
+          <p class="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed text-left mt-6 sm:mt-4">
+            Recuerda que la <span class="highlight-bold">Media</span> es el promedio de todos los valores observados y la <span class="highlight-bold">Desviación estándar</span> (DE) indica cuánto se alejan los valores de la media en promedio. Es decir, entre más grande es la DE más alta es la dispersión de los datos. Para más información <span class="highlight-bold">consulta el tema de Medidas de tendencia central y dispersión</span>
+          </p>
+        </div>
+      </div>
+
+      <p class="text-center text-base sm:text-lg text-gray-700 mb-6">
+        Presiona los MAS para obtener información sobre las partes de la curva de normalidad
+      </p>
+
+      <div class="relative w-full bg-white rounded-xl p-2 sm:p-4 border border-gray-100 shadow-sm overflow-hidden">
+        <div id="chart" class="w-full h-[560px]"></div>
+
+        <div class="absolute top-[100px] right-[10px] sm:right-[20px] w-[170px] sm:w-[210px] pointer-events-none select-none z-10">
+          <img 
+            src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@81ef8debfc11177a1ff7670f467d81f44a727b4e/Novato_Tik.svg" 
+            alt="Novato Tik"
+            class="w-full h-auto object-contain"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 pt-6 flex justify-between gap-4">
+      <button onclick="goToPage(2)" class="btn-nav-prev">
+        &larr; Atrás
+      </button>
+      <button onclick="goToPage(4)" class="btn-nav-next">
+        Siguiente &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 4: ALFA_DEMO_2 (Pruebas de Normalidad) -->
+  <div id="page-4" class="page-section pb-24">
+    <div class="container-header-demo1">
+      <div class="top-row-demo1">
+        <img 
+          src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/Duda_Blutik.svg" 
+          alt="Personaje Duda Blutik" 
+          class="character-header-demo1"
+        />
+        <div class="title-group-demo1">
+          <p class="subtitle-top-demo1">Conectando los puntos de las...</p>
+          <h1 class="main-title-demo1"><strong>Pruebas de Normalidad</strong></h1>
+        </div>
+      </div>
+
+      <div class="bottom-row-demo1">
+        <h2 class="question-text-demo1">
+          ¿Hay más personas <span class="underline-text-demo1">activas o inactivas?</span>
+        </h2>
+      </div>
+
+      <div class="content-section-demo1">
+        <p>
+          En el tema anterior pudo quedar la idea de que todos los fenómenos se comportan de la siguiente manera: Los valores <strong>muy altos</strong> y <strong>muy bajos</strong> son <strong>igual de probables</strong>.
+        </p>
+
+        <p>
+          Sin embargo, esto no siempre ocurre del mismo modo y hay diferentes factores que modifican la distribución de los datos, por ejemplo:
+        </p>
+      </div>
+    </div>
+
+    <div class="w-full max-w-4xl mx-auto px-4 sm:px-8 my-8">
+      <div class="carousel-card p-8 sm:p-12 relative min-h-[420px] flex flex-col justify-between items-center text-center">
+        
+        <div class="carousel-slide-demo2 w-full flex-1 flex flex-col items-center justify-center">
+          <p class="text-black text-xl sm:text-2xl gotham-black-title max-w-md leading-snug">
+            Desplázate con las flechas para conocer que puede afectar la distribución
+          </p>
+        </div>
+
+        <div class="carousel-slide-demo2 w-full flex-1 flex flex-col items-center justify-center hidden">
+          <div class="w-full max-w-md h-48 sm:h-56 mb-6 flex items-center justify-center">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@25d8ba481bdc37dbe01e47656204cf0716456017/Tama%C3%B1o_muestra_U3_T1-2.svg" 
+              alt="Muestras pequeñas" 
+              class="max-h-full w-auto object-contain"
+            />
+          </div>
+          <p class="text-gray-800 text-base sm:text-lg max-w-2xl leading-relaxed">
+            Las <span class="highlight-bold">muestras pequeñas</span> y el <span class="highlight-bold">tipo de muestreo</span> pueden representar de manera irregular la distribución y mostrar desviaciones de la normalidad.<br>
+            En 15 estudiantes, unos pocos muy activos pueden distorsionar la distribución de actividad física.
+          </p>
+        </div>
+
+        <div class="carousel-slide-demo2 w-full flex-1 flex flex-col items-center justify-center hidden">
+          <div class="w-full max-w-2xl h-48 sm:h-56 mb-6 flex items-center justify-center gap-4">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@25d8ba481bdc37dbe01e47656204cf0716456017/sesgo_derecho.png" 
+              alt="Sesgo Derecho" 
+              class="max-h-full w-1/2 object-contain"
+            />
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@25d8ba481bdc37dbe01e47656204cf0716456017/sesgo_izquierdo.png" 
+              alt="Sesgo Izquierdo" 
+              class="max-h-full w-1/2 object-contain"
+            />
+          </div>
+          <p class="text-gray-800 text-base sm:text-lg max-w-2xl leading-relaxed">
+            Los datos se pueden acumular más hacia un extremo de la distribución esto se conoce como <span class="highlight-bold">asimetría</span>.<br>
+            Por ejemplo, En una muestra podemos encontrar que la mayoría realiza poca actividad física (AF) y pocas personas realizan muchas horas.
+          </p>
+        </div>
+
+        <div class="carousel-slide-demo2 w-full flex-1 flex flex-col items-center justify-center hidden">
+          <div class="w-full max-w-md h-48 sm:h-56 mb-6 flex items-center justify-center">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@25d8ba481bdc37dbe01e47656204cf0716456017/sesgo_derecho.png" 
+              alt="Distribución Sesgada" 
+              class="max-h-full w-auto object-contain"
+            />
+          </div>
+          <p class="text-gray-800 text-base sm:text-lg max-w-2xl leading-relaxed">
+            Algunas <span class="highlight-bold">variables</span> tienden naturally a ser asimétricas debido a sus características o límites.<br>
+            El tiempo de actividad física suelen concentrarse en valores bajos y presentar pocos valores muy altos en la población en general.
+          </p>
+        </div>
+
+        <div class="carousel-slide-demo2 w-full flex-1 flex flex-col items-center justify-center hidden">
+          <div class="w-full max-w-md h-48 sm:h-56 mb-6 flex items-center justify-center">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@25d8ba481bdc37dbe01e47656204cf0716456017/Bimodal.png" 
+              alt="Bimodal" 
+              class="max-h-full w-auto object-contain"
+            />
+          </div>
+          <p class="text-gray-800 text-base sm:text-lg max-w-2xl leading-relaxed">
+            La distribución presenta varios picos cuando se combinan <span class="highlight-bold">grupos</span> con características diferentes.<br>
+            Por ejemplo, en una muestra que tiene a deportistas profesionales de alto rendimiento y personas que trabajan en oficinas.
+          </p>
+        </div>
+
+        <div class="carousel-slide-demo2 w-full flex-1 flex flex-col items-center justify-center hidden">
+          <div class="w-full max-w-md h-48 sm:h-56 mb-6 flex items-center justify-center">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@25d8ba481bdc37dbe01e47656204cf0716456017/curtosis.png" 
+              alt="Curtosis" 
+              class="max-h-full w-auto object-contain"
+            />
+          </div>
+          <p class="text-gray-800 text-base sm:text-lg max-w-2xl leading-relaxed">
+            Los datos pueden diferir en su dispersión, lo que puede hacer que la distribución sea más apuntada o achatada (La distribución normal es <span class="highlight-bold">mesocúrtica</span>, ni muy apuntada ni muy achatado).<br>
+            Por ejemplo, si casi todos realizan entre 100 y 200 minutos de actividad física, los datos están poco dispersos; si van de 20 a 500 minutos, están más dispersos.
+          </p>
+        </div>
+
+        <div class="w-full flex justify-between items-center pt-4 mt-auto">
+          <button id="prev-btn-demo2" class="arrow-btn" aria-label="Anterior">
+            <svg class="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
+          </button>
+          <button id="next-btn-demo2" class="arrow-btn" aria-label="Siguiente">
+            <svg class="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-header-demo1 mt-16">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl gotham-black-title text-gray-900 mb-4 leading-tight">
+        Pero... ¿Por qué es importante que la distribución sea normal?
+      </h2>
+
+      <div class="content-section-demo1">
+        <p>
+          A partir de esta distribución se calculan probabilidades, valores p e intervalos de confianza, elementos necesario para interpretar pruebas de hipótesis.
+        </p>
+      </div>
+
+      <div class="relative mt-16 mb-12">
+        <div class="card-krustik bg-white pt-16 sm:pt-16 pb-8 px-6 sm:px-10 text-gray-800 shadow-sm relative">
+          <div class="absolute -top-14 sm:-top-16 left-0 sm:left-2 w-[340px] sm:w-[440px] md:w-[480px] h-[100px] sm:h-[130px] flex items-center">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/ACP_KRUSTIK.svg" 
+              alt="Personaje Valores p e intervalos de confianza" 
+              class="w-full h-full object-contain select-none pointer-events-none"
+            />
+            <div class="absolute left-[20%] w-[58%] flex items-center justify-center text-center">
+              <h3 class="text-white text-base sm:text-xl md:text-2xl gotham-black-title leading-tight tracking-wide select-none">
+                Valores p e intervalos<br />de confianza
+              </h3>
+            </div>
+          </div>
+
+          <p class="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed text-left mt-6 sm:mt-4">
+            El <span class="highlight-bold">valor p</span> únicamente indica que existe evidencia suficiente para rechazar la hipótesis nula, ya que los datos observados serían poco probables si realmente no existiera un efecto en la población. El <span class="highlight-bold">intervalo de confianza</span> es un rango de valores posibles dentro del cual se estima que se encuentra el valor real de la población.
+          </p>
+        </div>
+      </div>
+
+      <div class="content-section-demo1 mb-12">
+        <p>
+          La distribución normal de los datos permite a los investigadores tomar una de las primeras decisiones sobre qué <strong>análisis estadísticos son adecuados</strong>.
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 my-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="flex flex-col items-center text-center">
+          <button onclick="openModalNormalidad('parametricas')" class="badge-purple">
+            Pruebas Paramétricas
+          </button>
+        </div>
+        <div class="flex flex-col items-center text-center">
+          <button onclick="openModalNormalidad('noparametricas')" class="badge-purple">
+            No paramétricas
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 my-10">
+        <div class="w-full md:w-1/2 content-section-demo1">
+          <p class="text-lg sm:text-xl text-gray-800 leading-relaxed margin-0">
+            Por ello, cuando se incumple el supuesto de normalidad, sus conclusiones pueden <strong>dejar de ser confiables</strong>
+          </p>
+        </div>
+
+        <div class="w-full md:w-1/2 relative mt-10 md:mt-0">
+          <div class="card-krustik bg-white pt-14 pb-8 px-6 sm:px-8 text-gray-800 shadow-sm relative text-center">
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-[300px] sm:w-[360px] h-[90px] sm:h-[110px] flex items-center justify-center">
+              <img 
+                src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/ACP_KRUSTIK.svg" 
+                alt="Personaje Prueba de hipótesis" 
+                class="w-full h-full object-contain select-none pointer-events-none"
+              />
+              <div class="absolute left-[20%] w-[58%] flex items-center justify-center text-center">
+                <h3 class="text-white text-lg sm:text-xl gotham-black-title leading-tight select-none">
+                  Prueba de hipótesis
+                </h3>
+              </div>
+            </div>
+
+            <p class="text-gray-700 text-base sm:text-lg leading-relaxed mt-2">
+              Procedimiento estadístico que permite evaluar una afirmación sobre una población a partir de los datos obtenidos de una muestra.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-section-demo1 mt-12 mb-16">
+        <p>
+          Por tal motivos, los investigadores recurren a métodos para determinar si una variable se comporta como una distribución normal
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 my-12">
+      <div class="w-full relative my-12">
+        <div class="card-fishtik bg-white pt-8 pb-10 pl-6 sm:pl-10 pr-16 sm:pr-36 text-gray-800 shadow-sm relative">
+          <p class="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed text-left">
+            Una <span class="highlight-bold">prueba de normalidad</span> es un procedimiento estadístico que permite determinar si un conjunto de datos es compatible con una distribución normal. Su propósito es identificar si los datos presentan desviaciones importantes respecto a este patrón de distribución.
+          </p>
+
+          <div class="absolute -bottom-20 -right-8 sm:-bottom-24 sm:-right-10 md:-bottom-28 md:-right-12 w-[160px] sm:w-[200px] md:w-[230px] pointer-events-none select-none z-10">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/concepto_Fishtik.svg" 
+              alt="Personaje Fishtik Concepto" 
+              class="w-full h-auto object-contain block"
+              onerror="this.onerror=null; this.src='https://placehold.co/220x220/d45b53/ffffff?text=Fishtik';"
+            />
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div class="content-section-demo1 mt-16 mb-10">
+        <p>
+          Existen diferentes métodos para comprobar este supuesto de normalidad los cuales son reportados en el apartado de "Análisis de datos" en los artículos científicos
+        </p>
+      </div>
+
+      <div class="w-full my-12 px-4 sm:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-6 text-center md:text-left border-b border-transparent">
+          <div class="gotham-black-title text-xl sm:text-2xl text-black">Prueba</div>
+          <div class="gotham-black-title text-xl sm:text-2xl text-black">¿Cuándo generalmente se usan?</div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 text-center md:text-left items-center">
+          <div class="text-lg sm:text-xl text-gray-700">Shapiro-Wilk</div>
+          <div class="text-lg sm:text-xl text-gray-700">Muestras pequeñas o medianas (20 &ge; n &le; 50)</div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 text-center md:text-left items-center">
+          <div class="text-lg sm:text-xl text-gray-700">Kolmogorov-Smirnov (K-S)</div>
+          <div class="text-lg sm:text-xl text-gray-700">Muestras grandes (n &ge; 50)</div>
+        </div>
+      </div>
+
+      <div class="content-section-demo1 mt-12 mb-16">
+        <p>
+          Sin embargo, esto no significa que cualquier desviación de la normalidad invalide automáticamente una prueba estadística.
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 my-12">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl gotham-black-title text-gray-900 mb-8 leading-tight">
+        Transformación
+      </h2>
+
+      <div class="w-full relative my-12">
+        <div class="card-fishtik bg-white pt-8 pb-10 pl-6 sm:pl-10 pr-16 sm:pr-36 text-gray-800 shadow-sm relative">
+          <p class="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed text-left">
+            Las <span class="highlight-bold">transformaciones de datos</span> son procedimientos matemáticos que modifican los valores de una variable para mejorar su comportamiento estadístico y facilitar el cumplimiento de los supuestos requeridos por determinados análisis.
+          </p>
+
+          <div class="absolute -bottom-20 -right-8 sm:-bottom-24 sm:-right-10 md:-bottom-28 md:-right-12 w-[160px] sm:w-[200px] md:w-[230px] pointer-events-none select-none z-10">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/concepto_Fishtik.svg" 
+              alt="Personaje Fishtik Transformación" 
+              class="w-full h-auto object-contain block"
+              onerror="this.onerror=null; this.src='https://placehold.co/220x220/d45b53/ffffff?text=Fishtik';"
+            />
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <div class="content-section-demo1 mt-16 mb-10">
+        <p>
+          Esta técnica también se reporta en la sección de "análisis estadísticos" en los artículos científicos.
+        </p>
+      </div>
+
+      <div class="w-full my-12 px-4 sm:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-6 text-center md:text-left border-b border-transparent">
+          <div class="gotham-black-title text-xl sm:text-2xl text-black">Método</div>
+          <div class="gotham-black-title text-xl sm:text-2xl text-black">¿Cuándo se usa?</div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 text-center md:text-left items-center">
+          <div class="text-lg sm:text-xl text-gray-700">Logarítmica</div>
+          <div class="text-lg sm:text-xl text-gray-700">Cuando los datos continuos presentan asimetría positiva</div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 text-center md:text-left items-center">
+          <div class="text-lg sm:text-xl text-gray-700">Raíz cuadrada</div>
+          <div class="text-lg sm:text-xl text-gray-700">Principalmente con variables discretas con asimetría.</div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 text-center md:text-left items-center">
+          <div class="text-lg sm:text-xl text-gray-700">Inversa</div>
+          <div class="text-lg sm:text-xl text-gray-700">Cuando existe una asimetría muy marcada y otras transformaciones no son suficientes.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 my-16">
+      <div class="bg-white border border-gray-100 rounded-3xl p-6 sm:p-10 shadow-xl flex flex-col items-center text-center">
+        <h3 id="titulo-simulador" class="gotham-black-title text-2xl sm:text-3xl text-gray-900 mb-6 transition-all duration-300">
+          Distribución Sesgada a la Derecha
+        </h3>
+
+        <div class="w-full flex justify-center items-center overflow-x-auto my-4">
+          <canvas id="canvas-transform" width="800" height="450" class="max-w-full h-auto border border-gray-100 rounded-2xl shadow-sm bg-white"></canvas>
+        </div>
+        
+        <div class="mt-8">
+          <button onclick="toggleAnimacion()" class="btn-custom-action">
+            Transformar Distribución
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 pt-6 flex justify-between gap-4">
+      <button onclick="goToPage(3)" class="btn-nav-prev">
+        &larr; Atrás
+      </button>
+      <button onclick="goToPage(5)" class="btn-nav-next">
+        Siguiente &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 5: ALFA_DEMO_3 (TLC) -->
+  <div id="page-5" class="page-section pb-24">
+    <div class="container-header-demo1">
+      <div class="top-row-demo1">
+        <img 
+          src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/Duda_Blutik.svg" 
+          alt="Personaje Duda Blutik" 
+          class="character-header-demo1"
+        />
+        <div class="title-group-demo1">
+          <p class="subtitle-top-demo1">Conectando los puntos del...</p>
+          <h1 class="main-title-demo1">Teorema del Límite Central</h1>
+        </div>
+      </div>
+
+      <div class="bottom-row-demo1">
+        <h2 class="question-text-demo1">
+          <span class="underline-text-demo1">¡Hagamos albondigas,</span> con Rigo y Rhotik!
+        </h2>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 my-12">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 my-8">
+        <div class="w-full md:w-1/2 content-section-demo1">
+          <p class="text-gray-800 text-lg sm:text-xl leading-relaxed m-0">
+            Conocer como funciona la distribución normal, es la base para entender como funciona la estadística inferencial
+          </p>
+        </div>
+
+        <div class="w-full md:w-[500px] relative mt-6 md:mt-0">
+          <div class="card-fishtik bg-white pt-6 pb-8 pl-6 sm:pl-8 pr-16 sm:pr-32 text-gray-800 shadow-sm relative">
+            <p class="text-gray-700 text-base sm:text-lg leading-relaxed text-left">
+              La <span class="highlight-bold">estadística inferencial</span> permite sacar conclusiones sobre una población a partir de los datos obtenidos de una muestra, considerando la incertidumbre de esas conclusiones.
+            </p>
+
+            <div class="absolute -bottom-20 -right-8 sm:-bottom-24 sm:-right-10 md:-bottom-28 md:-right-12 w-[160px] sm:w-[200px] md:w-[220px] pointer-events-none select-none z-10">
+              <img 
+                src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/concepto_Fishtik.svg" 
+                alt="Personaje Fishtik Concepto" 
+                class="w-full h-auto object-contain block"
+                onerror="this.onerror=null; this.src='https://placehold.co/220x220/d45b53/ffffff?text=Fishtik';"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-section-demo1 mt-16 sm:mt-20 mb-12">
+        <p class="text-gray-800 text-lg sm:text-xl leading-relaxed">
+          Pero, ¿cómo pueden los investigadores estar seguros de que las inferencias estadísticas sobre una gran población son precisas y confiables cuando se basan en una pequeña muestra?
+        </p>
+      </div>
+
+      <div class="w-full relative my-16">
+        <div class="card-fishtik bg-white pt-8 pb-10 pl-6 sm:pl-10 pr-16 sm:pr-36 text-gray-800 shadow-sm relative">
+          <p class="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed text-left">
+            El <span class="highlight-bold">teorema del límite central (TLC)</span> ayuda a responder esta pregunta establece que si se toman muchas muestras suficientemente grandes y bajo determinadas condiciones, la distribución del estadístico pueda aproximarse a la normalidad incluso cuando los datos originales no lo sean
+          </p>
+
+          <div class="absolute -bottom-20 -right-8 sm:-bottom-24 sm:-right-10 md:-bottom-28 md:-right-12 w-[160px] sm:w-[200px] md:w-[230px] pointer-events-none select-none z-10">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/concepto_Fishtik.svg" 
+              alt="Personaje Fishtik Concepto TLC" 
+              class="w-full h-auto object-contain block"
+              onerror="this.onerror=null; this.src='https://placehold.co/220x220/d45b53/ffffff?text=Fishtik';"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 my-16">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 sm:gap-12">
+        <div class="w-full md:w-1/2 flex justify-center">
+          <img 
+            src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/cocina_U3_T1-2.svg" 
+            alt="Rigo y Rhotik en la cocina" 
+            class="w-full max-w-[380px] sm:max-w-[420px] h-auto object-contain select-none"
+          />
+        </div>
+
+        <div class="w-full md:w-1/2 content-section-demo1 flex flex-col justify-center space-y-6">
+          <p class="text-gray-800 text-lg sm:text-xl leading-relaxed m-0">
+            Rigo y Rhotik quieren hacer albondigas, pero hay un gran problema...
+          </p>
+          
+          <p class="text-gray-800 text-lg sm:text-xl leading-relaxed m-0">
+            Rhotik hace albondigas muy pequeñas<br>
+            Rigo hace albondigas muy grandes.
+          </p>
+
+          <p class="text-gray-800 text-lg sm:text-xl leading-relaxed m-0">
+            Aprovechando esta bochornosa situación, expliquemos como funciona el TLC...
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full max-w-4xl mx-auto px-4 sm:px-8 my-12">
+      <div class="carousel-card p-8 sm:p-12 relative min-h-[460px] flex flex-col justify-between items-center text-center">
+        
+        <div class="carousel-slide-demo3 w-full flex-1 flex flex-col items-center justify-center">
+          <p class="text-black text-xl sm:text-2xl gotham-black-title max-w-md leading-snug">
+            Desplázate con las flechas para conocer como funciona el teorema del límite central
+          </p>
+        </div>
+
+        <div class="carousel-slide-demo3 w-full flex-1 flex flex-col items-center justify-center hidden">
+          <div class="w-full max-w-3xl h-52 sm:h-64 mb-6 flex items-center justify-center gap-6 sm:gap-10">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@81b341a977486a1dbaa1788e6c068f6759bfba31/Caldero.svg" 
+              alt="Gran olla de albóndigas" 
+              class="max-h-full w-1/2 object-contain"
+            />
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@81b341a977486a1dbaa1788e6c068f6759bfba31/Sesgoalbondiga.svg" 
+              alt="Distribución sesgada de las albóndigas" 
+              class="max-h-full w-1/2 object-contain"
+            />
+          </div>
+          <p class="text-gray-800 text-base sm:text-lg max-w-2xl leading-relaxed">
+            Imagina una gran olla con muchas albondigas grandes y pocas albondigas pequeñas. Esta variedad de tamaños representa una población con datos distribuidos de manera desigual, es decir se encuentra naturally sesgada
+          </p>
+        </div>
+
+        <div class="carousel-slide-demo3 w-full flex-1 flex flex-col items-center justify-center hidden">
+          <div class="w-full max-w-md h-52 sm:h-64 mb-6 flex items-center justify-center">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@81b341a977486a1dbaa1788e6c068f6759bfba31/cucharon.svg" 
+              alt="Muestra al azar con cucharón" 
+              class="max-h-full w-auto object-contain"
+            />
+          </div>
+          <p class="text-gray-800 text-base sm:text-lg max-w-2xl leading-relaxed">
+            Al sacar las albóndigas con un cucharón, cada porción es una muestra al azar: algunas tendrán más albóndigas grandes y otras más pequeñas, aunque provengan de la misma población.
+          </p>
+        </div>
+
+        <div class="carousel-slide-demo3 w-full flex-1 flex flex-col items-center justify-center hidden">
+          <div class="w-full max-w-2xl h-52 sm:h-64 mb-6 flex items-center justify-center">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@81b341a977486a1dbaa1788e6c068f6759bfba31/tazones.svg" 
+              alt="Muchos tazones se aproximan al promedio de la población" 
+              class="max-h-full w-auto object-contain"
+            />
+          </div>
+          <p class="text-gray-800 text-base sm:text-lg max-w-2xl leading-relaxed">
+            Al servir muchos tazones, las diferencias entre muestras se compensan gradualmente. Cuantas más muestras se toman, el promedio se acerca cada vez más al de la población.
+          </p>
+        </div>
+
+        <div class="carousel-slide-demo3 w-full flex-1 flex flex-col items-center justify-center hidden">
+          <div class="w-full max-w-md h-52 sm:h-64 mb-6 flex items-center justify-center">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@81b341a977486a1dbaa1788e6c068f6759bfba31/Normalbondiga.svg" 
+              alt="Distribución normal de los promedios" 
+              class="max-h-full w-auto object-contain"
+            />
+          </div>
+          <p class="text-gray-800 text-base sm:text-lg max-w-2xl leading-relaxed">
+            Aunque cada muestra puede variar, la distribución de las medias tiende a ser normal cuando se toman suficientes muestras (o platos) apesar de que la población esté sesgada. Así funciona el TLC.
+          </p>
+        </div>
+
+        <div class="w-full flex justify-between items-center pt-4 mt-auto">
+          <button id="prev-btn-demo3" class="arrow-btn" aria-label="Anterior">
+            <svg class="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
+          </button>
+          <button id="next-btn-demo3" class="arrow-btn" aria-label="Siguiente">
+            <svg class="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 my-16">
+      <div class="flex flex-col sm:flex-row items-center justify-start gap-6 sm:gap-10 my-8">
+        <img 
+          src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@81b341a977486a1dbaa1788e6c068f6759bfba31/rigo.svg" 
+          alt="Personaje Rigo" 
+          class="w-28 sm:w-36 h-auto object-contain select-none flex-shrink-0"
+        />
+        <div class="content-section-demo1">
+          <p class="text-gray-800 text-lg sm:text-xl leading-relaxed m-0">
+            El TLC permite a los investigadores hacer inferencias sobre una población a partir de los datos de una muestra.
+          </p>
+        </div>
+      </div>
+
+      <div class="my-10">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl gotham-black-title text-black leading-tight">
+          ¿Cómo podemos saber qué tan precisa son los resultados de una muestra?
+        </h2>
+      </div>
+
+      <div class="content-section-demo1 my-6">
+        <p class="text-gray-800 text-lg sm:text-xl leading-relaxed">
+          Para responder esta pregunta, existe un concepto llamado <strong>Error Estandar</strong>.
+        </p>
+      </div>
+
+      <div class="w-full relative my-12">
+        <div class="card-fishtik bg-white pt-8 pb-10 pl-6 sm:pl-10 pr-16 sm:pr-36 text-gray-800 shadow-sm relative">
+          <p class="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed text-left">
+            El <span class="highlight-bold">error estándar</span> es una medida que indica qué tan precisa es una estimación obtenida a partir de una muestra. Representa la variabilidad esperada de un <span class="highlight-bold">estadístico</span> (como una media) cuando se obtienen diferentes muestras de una misma población.
+          </p>
+
+          <div class="absolute -bottom-20 -right-8 sm:-bottom-24 sm:-right-10 md:-bottom-28 md:-right-12 w-[160px] sm:w-[200px] md:w-[230px] pointer-events-none select-none z-10">
+            <img 
+              src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/concepto_Fishtik.svg" 
+              alt="Personaje Fishtik Concepto Error Estándar" 
+              class="w-full h-auto object-contain block"
+              onerror="this.onerror=null; this.src='https://placehold.co/220x220/d45b53/ffffff?text=Fishtik';"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 my-16">
+      <div class="content-section-demo1 mb-12">
+        <p class="text-gray-800 text-lg sm:text-xl leading-relaxed">
+          Es importante no confundirlo con la desviación estándar, esta describe qué tan dispersos están los datos individuales, mientras que <strong>el error estándar describe la incertidumbre de una estimación de una muestra.</strong>
+        </p>
+      </div>
+
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 my-10">
+        <div class="w-full md:w-1/2 content-section-demo1">
+          <p class="text-gray-800 text-lg sm:text-xl leading-relaxed m-0">
+            Sin embargo, aunque no observemos otras muestras, el error estandar permite estimar cuánto podría variar el estadístico obtenido si se tomaran repetidamente muestras similares de la misma población.
+          </p>
+        </div>
+
+        <div class="w-full md:w-1/2 relative mt-12 md:mt-0">
+          <div class="card-krustik bg-white pt-14 pb-8 px-6 sm:px-8 text-gray-800 shadow-sm relative text-center">
+            <div class="absolute -top-12 left-1/2 -translate-x-1/2 w-[300px] sm:w-[360px] h-[90px] sm:h-[110px] flex items-center justify-center">
+              <img 
+                src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/ACP_KRUSTIK.svg" 
+                alt="Personaje Parámetro y estimador" 
+                class="w-full h-full object-contain select-none pointer-events-none"
+              />
+              <div class="absolute left-[20%] w-[58%] flex items-center justify-center text-center">
+                <h3 class="text-white text-lg sm:text-xl gotham-black-title leading-tight select-none">
+                  Parametro y estimador
+                </h3>
+              </div>
+            </div>
+
+            <p class="text-gray-700 text-base sm:text-lg leading-relaxed mt-2 text-left sm:text-center">
+              Un <strong>parámetro</strong> es un valor numérico que describe una característica de toda la población, mientras que un estimador o <strong>estadístico</strong> se calcula con una muestra para aproximar ese parámetro.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-section-demo1 mt-12 mb-16">
+        <p class="text-gray-800 text-lg sm:text-xl leading-relaxed">
+          Por ello, en investigaciones son valoradas las muestras grandes, ya que <strong>a medida que aumenta el tamaño de la muestra, el error estándar disminuye.</strong> Esto significa que las estimaciones de muestras grandes son estimaciones más precisas y estables de la población.
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 my-16">
+      <div class="flex flex-col sm:flex-row items-center justify-start gap-6 sm:gap-10 my-8">
+        <img 
+          src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@81b341a977486a1dbaa1788e6c068f6759bfba31/Focomarillo.svg" 
+          alt="Ilustración Foco Amarillo" 
+          class="w-28 sm:w-36 h-auto object-contain select-none flex-shrink-0"
+        />
+
+        <div class="content-section-demo1">
+          <p class="text-gray-800 text-lg sm:text-xl leading-relaxed m-0">
+            ¡Tanto el TLC y el error estandar han servido como argumento para considerar que <strong>muestras grandes permiten aproximar la normalidad</strong> de la distribución de las medias muestrales y obtener estimaciones más precisas!
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 pt-6 flex justify-between gap-4">
+      <button onclick="goToPage(4)" class="btn-nav-prev">
+        &larr; Atrás
+      </button>
+      <button onclick="goToPage(6)" class="btn-nav-next">
+        Siguiente &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 6: ALFA_DEMO_10 (Rompecabezas) -->
+  <div id="page-6" class="page-section pb-24">
+    <div class="min-h-screen flex flex-col items-center p-4 bg-white">
+      <header class="w-full max-w-3xl text-center mb-4">
+        <div class="flex items-center justify-center gap-3 mb-2">
+          <h1 class="font-sugo text-3xl md:text-5xl text-[#06004c]">Rompecabezas de la Distribución Normal</h1>
+        </div>
+        <p class="font-gotham-black text-sm md:text-base text-[#5e0047] uppercase">Reconstruye la Distribución de la Evidencia respondiendo correctamente cada pregunta</p>
+      </header>
+
+      <main class="w-full max-w-3xl flex flex-col items-center gap-4">
+        <div class="w-full max-w-md">
+          <div class="flex justify-between text-xs font-gotham-bold mb-1">
+            <span class="text-[#06004c]">Progreso</span> 
+            <span id="progress-text" class="text-[#06004c]">0/12</span>
+          </div>
+          <div class="w-full h-4 rounded-full overflow-hidden bg-gray-100 border border-gray-300 shadow-inner">
+            <div id="progress-fill" class="h-full rounded-full progress-fill" style="width: 0%; background: linear-gradient(90deg, #06004c, #5e0047, #c2005d);"></div>
+          </div>
+        </div>
+
+        <div id="puzzle-grid" class="grid grid-cols-4 grid-rows-3 gap-0 w-full max-w-lg aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-200 bg-gray-100">
+        </div>
+
+        <p id="hint-text" class="font-gotham-bold text-sm text-center text-[#06004c]">Pieza 1 de 12 — Haz clic en la pieza iluminada para continuar</p>
+
+        <div id="completion-screen" class="w-full max-w-md rounded-2xl p-6 text-center fade-up hidden bg-white border border-gray-200 shadow-2xl">
+          <h2 class="font-sugo text-2xl md:text-3xl mb-2 text-[#c2005d]">¡Distribución reconstruida!</h2>
+          <p class="font-gotham-light text-xs leading-relaxed text-[#06004c]">Has desarrollado herramientas para comprender cómo las características de los datos influyen en la interpretación de resultados científicos y en la toma de decisiones profesionales basadas en evidencia. ¡Felicidades, futuro/a psicólogo/a!</p>
+          <button onclick="resetGame()" class="mt-4 px-5 py-2.5 bg-[#c2005d] hover:bg-[#5e0047] rounded-xl font-gotham-bold text-white text-sm transition shadow-lg uppercase">Jugar de nuevo</button>
+        </div>
+      </main>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 pt-6 flex justify-between gap-4">
+      <button onclick="goToPage(5)" class="btn-nav-prev">
+        &larr; Atrás
+      </button>
+      <button onclick="goToPage(7)" class="btn-nav-next">
+        Siguiente &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 7: ALFA_DEMO_7 (Integremos los puntos) -->
+  <div id="page-7" class="page-section pb-24">
+    <div class="max-w-5xl mx-auto px-4 sm:px-8 space-y-8 my-8">
+      
+      <!-- 1. ENCABEZADO CON IMAGEN Y TÍTULO -->
+      <div class="flex items-center gap-5">
+        <img 
+          src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@98a9a73b562e6a8effa19b783627483f539ea3c5/Normal.svg" 
+          alt="Personaje Normal" 
+          class="w-16 sm:w-20 h-auto object-contain select-none flex-shrink-0"
+        />
+        <h1 class="main-title-demo7">Integremos los puntos</h1>
+      </div>
+
+      <!-- 2. CONTEXTO E INSTRUCCIONES -->
+      <div class="space-y-4 text-gray-800 text-base sm:text-lg leading-relaxed">
+        <p>
+          Después de estudiar la unidad <strong>“Distribuciones de probabilidad y distribuciones muestrales”</strong>, ¿cómo explicarías la importancia de la distribución de los datos para comprender cómo los investigadores utilizan una muestra para extraer conclusiones sobre una población y seleccionar las pruebas estadísticas adecuadas en un artículo científico?
+        </p>
+
+        <p>
+          <strong>Ingresa tu respuesta en el cuadro de texto.</strong> Expresar tus ideas por escrito puede ayudarte a comprender mejor los conceptos y a reflexionar sobre ellos. Tu respuesta será únicamente para tu consulta personal, así que asegúrate de guardarla para revisarla cuando lo necesites.
+        </p>
+      </div>
+
+      <!-- 3. CUADRO DE TEXTO CON CONTADOR -->
+      <div class="relative">
+        <textarea 
+          id="user-response" 
+          class="textarea-custom" 
+          maxlength="700" 
+          placeholder="Escribe aquí..."
+          oninput="updateCharCount()"></textarea>
+
+        <div class="flex justify-end mt-2">
+          <span id="char-counter" class="text-gray-400 text-sm font-medium">
+            Caracteres restantes: 700*
+          </span>
+        </div>
+      </div>
+
+      <!-- 4. BOTONES DE ACCIÓN -->
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <button onclick="copyResponse()" class="btn-dark-navy w-full sm:w-auto">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+          Copiar respuesta
+        </button>
+
+        <button onclick="toggleEvaluation()" class="btn-dark-navy w-full sm:w-auto">
+          Evalúa tu razonamiento
+        </button>
+      </div>
+
+      <hr class="border-gray-200 my-6" />
+
+      <!-- 5. SECCIÓN DESPLEGABLE: EVALÚA TU RAZONAMIENTO -->
+      <div id="evaluation-section" class="space-y-6 hidden">
+        <h2 class="text-2xl sm:text-3xl gotham-black-title text-black">
+          Evalúa tu razonamiento
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          
+          <!-- Ítem 1 -->
+          <div class="checkbox-container" onclick="toggleCheckbox(this)">
+            <div class="custom-checkbox">
+              <svg viewBox="0 0 24 24" fill="none">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <p class="text-gray-800 text-sm sm:text-base leading-snug m-0">
+              <strong>La relación entre muestra y población.</strong> Explicaste que los investigadores utilizan los datos obtenidos en una muestra para estimar características o extraer conclusiones sobre una población más amplia.
+            </p>
+          </div>
+
+          <!-- Ítem 2 -->
+          <div class="checkbox-container" onclick="toggleCheckbox(this)">
+            <div class="custom-checkbox">
+              <svg viewBox="0 0 24 24" fill="none">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <p class="text-gray-800 text-sm sm:text-base leading-snug m-0">
+              <strong>La importancia de la distribución de los datos.</strong> Mencionaste que la forma en que se distribuyen los datos influye en la selección de pruebas paramétricas o no paramétricas y, por lo tanto, en la interpretación de los resultados estadísticos.
+            </p>
+          </div>
+
+          <!-- Ítem 3 -->
+          <div class="checkbox-container" onclick="toggleCheckbox(this)">
+            <div class="custom-checkbox">
+              <svg viewBox="0 0 24 24" fill="none">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <p class="text-gray-800 text-sm sm:text-base leading-snug m-0">
+              <strong>El papel del Teorema del Límite Central y el error estándar.</strong> Explicaste cómo estos conceptos permiten estimar la precisión de los resultados y realizar inferencias sobre una población a partir de muestras.
+            </p>
+          </div>
+
+          <!-- Ítem 4 -->
+          <div class="checkbox-container" onclick="toggleCheckbox(this)">
+            <div class="custom-checkbox">
+              <svg viewBox="0 0 24 24" fill="none">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <p class="text-gray-800 text-sm sm:text-base leading-snug m-0">
+              <strong>La calidad de las decisiones estadísticas.</strong> Mencionaste cómo estos conceptos ayudan a juzgar si las inferencias realizadas sobre la población basadas en la muestra son razonables.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-8 pt-6 flex justify-between gap-4">
+      <button onclick="goToPage(6)" class="btn-nav-prev">
+        &larr; Atrás
+      </button>
+      <button onclick="goToPage(8)" class="btn-nav-next">
+        Siguiente &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 8: ALFA_DEMO_4 (Simulador) -->
+  <div id="page-8" class="page-section pb-24">
+    <div class="container-header-demo1">
+      <div class="top-row-demo1">
+        <img 
+          src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@81b341a977486a1dbaa1788e6c068f6759bfba31/sornara.svg" 
+          alt="Personaje Sornara" 
+          class="character-header-demo1"
+        />
+        <div class="title-group-demo1">
+          <p class="subtitle-top-demo1">Vamos al punto de la...</p>
+          <h1 class="main-title-demo1">Distribución Normal</h1>
+        </div>
+      </div>
+
+      <div class="bottom-row-demo1">
+        <h2 class="question-text-demo1">
+          ¡Al <span class="underline-text-demo1">laboratorio</span> de Cuantik!
+        </h2>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 my-12">
+      <div class="flex flex-col sm:flex-row items-center justify-start gap-6 sm:gap-10 my-8">
+        <img 
+          src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@81b341a977486a1dbaa1788e6c068f6759bfba31/Cuantik1.svg" 
+          alt="Personaje Cuantik" 
+          class="w-28 sm:w-36 h-auto object-contain select-none flex-shrink-0"
+        />
+        <div class="content-section-demo1 space-y-4">
+          <p class="text-gray-800 text-lg sm:text-xl leading-relaxed m-0">
+            Es momento de aplicar lo aprendido a situaciones reales que se enfrentan los psicologos el día a día al consumir literatura científica...
+          </p>
+          <p class="text-gray-800 text-lg sm:text-xl leading-relaxed m-0">
+            Pero tranquilo estás en un lugar seguro, en este simulador podras equivocarte y repetir las actividades las veces que quieras...
+          </p>
+        </div>
+      </div>
+
+      <div class="my-10">
+        <h2 class="text-3xl sm:text-4xl gotham-black-title text-black leading-tight">
+          Vamos paso a paso...
+        </h2>
+      </div>
+
+      <div class="content-section-demo1 my-6 space-y-6">
+        <p class="text-gray-800 text-lg sm:text-xl leading-relaxed m-0">
+          No te voy a pedir que leas el artículo completo, vas a trabajar con una versión sintetizada, sin embargo, si desea leerlo completo puedes encontrarlo aquí...
+        </p>
+
+        <p class="text-gray-500 text-sm sm:text-base italic leading-relaxed m-0">
+          Moral García JE, Agraso López AD, Pérez Soto JJ, Rosa Guillamón A, Tárraga Marcos ML, García Cantó E, Tárraga López PJ. Práctica de actividad física según adherencia a la dieta mediterránea, consumo de alcohol y motivación en adolescentes. Nutr Hosp 2019;36(2):420-427 DOI: 
+          <a href="http://dx.doi.org/10.20960/nh.2181" target="_blank" rel="noopener noreferrer" class="underline text-blue-600 hover:text-blue-800">http://dx.doi.org/10.20960/nh.2181</a>
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 my-10 max-w-2xl mx-auto">
+        <button onclick="openModalSimulador('modal-objetivo')" class="btn-purple-option">
+          Objetivo del Estudio
+        </button>
+        <button onclick="openModalSimulador('modal-metodo')" class="btn-purple-option">
+          Método
+        </button>
+        <button onclick="openModalSimulador('modal-variables')" class="btn-purple-option">
+          Variables
+        </button>
+        <button onclick="openModalSimulador('modal-analisis')" class="btn-purple-option">
+          Analisis estadístico
+        </button>
+      </div>
+    </div>
+
+    <!-- Modales del Simulador -->
+    <div id="modal-objetivo" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop bg-black/40 hidden">
+      <div class="bg-white modal-card-simulador max-w-xl w-full p-8 sm:p-10 relative">
+        <button onclick="closeModalSimulador('modal-objetivo')" class="close-btn-simulador absolute top-6 right-6" aria-label="Cerrar">X</button>
+        <h3 class="text-2xl sm:text-3xl gotham-black-title text-black mb-6">El objetivo del estudio era...</h3>
+        <div class="content-section-demo1 space-y-6 text-gray-700 text-base sm:text-lg">
+          <p class="m-0 leading-relaxed">Determinar si existe asociación entre la motivación hacia la práctica física-deportiva con el sexo, la edad, el índice de masa corporal (IMC), la adherencia a la dieta mediterránea, el consumo de alcohol y la actividad física.</p>
+          <p class="m-0 leading-relaxed">La <strong>asociación</strong> es una relación entre dos variables que indica cómo cambian conjuntamente, sin implicar necesariamente causalidad.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-metodo" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop bg-black/40 hidden">
+      <div class="bg-white modal-card-simulador max-w-xl w-full p-8 sm:p-10 relative">
+        <button onclick="closeModalSimulador('modal-metodo')" class="close-btn-simulador absolute top-6 right-6" aria-label="Cerrar">X</button>
+        <h3 class="text-2xl sm:text-3xl gotham-black-title text-black mb-6">Método</h3>
+        <div class="content-section-demo1 text-gray-700 text-base sm:text-lg">
+          <p class="m-0 leading-relaxed">Se realizó un <strong>estudio descriptivo, exploratorio, comparativo y de corte transversal</strong>. La <strong>muestra consistió en 648 adolescentes</strong> (50,9% mujeres) de entre 12 y 16 años (edad media de 13,87 años). Los participantes fueron seleccionados mediante <strong>muestreo aleatorio simple</strong> en seis centros de Educación Secundaria Obligatoria del suroeste de Andalucía. La recolección de datos se llevó a cabo durante el curso académico 2016-2017, en los meses de mayo y junio, en una única sesión escolar de 30 minutos. Como criterio de inclusión se requirió no presentar enfermedades ni restricciones médicas para hacer actividad física.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-variables" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop bg-black/40 hidden">
+      <div class="bg-white modal-card-simulador max-w-2xl w-full p-8 sm:p-10 relative max-h-[85vh] overflow-y-auto">
+        <button onclick="closeModalSimulador('modal-variables')" class="close-btn-simulador absolute top-6 right-6" aria-label="Cerrar">X</button>
+        <h3 class="text-2xl sm:text-3xl gotham-black-title text-black mb-6">Variables</h3>
+        <div class="content-section-demo1 text-gray-700 text-base sm:text-lg space-y-4">
+          <div>
+            <p class="gotham-black-title text-black m-0">1. Adherencia a la Dieta Mediterránea</p>
+            <ul class="list-disc pl-6 mt-1 m-0">
+              <li>Grado de ajuste de los hábitos alimentarios cotidianos del adolescente respecto al patrón nutricional mediterráneo tradicional. Evaluada con el test KIDMED de 16 preguntas dicotómicas, clasificando el índice final en adherencia baja (&le;3 puntos), media (4-7 puntos) o alta (&ge;8 puntos).</li>
+            </ul>
+          </div>
+          <div>
+            <p class="gotham-black-title text-black m-0">2. Consumo de Alcohol</p>
+            <ul class="list-disc pl-6 mt-1 m-0">
+              <li>Frecuencia y cantidad habitual de ingestión de bebidas alcohólicas. Medido mediante el ítem de cantidad y frecuencia del cuestionario Escala de Consumo de Alcohol, categorizado en cuatro niveles: no consume (0), escaso (1), medio (2) y excesivo (3).</li>
+            </ul>
+          </div>
+          <div>
+            <p class="gotham-black-title text-black m-0">3. Práctica de Actividad Física (AF)</p>
+            <ul class="list-disc pl-6 mt-1 m-0">
+              <li>Realización regular de ejercicio corporal, deportes y desplazamientos activos durante el tiempo libre y de ocio. Evaluada con el cuestionario IPAQ-Adolescentes (caminata, AF moderada y vigorosa) en tiempo libre.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="gotham-black-title text-black m-0">4. Motivación Física-Deportiva</p>
+            <ul class="list-disc pl-6 mt-1 m-0">
+              <li>Predisposición psicológica, percepción de competencia y preferencia individual hacia la realización de ejercicio físico. Medida mediante la escala CSAPPA de 20 ítems tipo Likert (1 a 4), evaluando tres factores: adecuación, predilección y disfrute hacia la actividad física.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="gotham-black-title text-black m-0">5. Índice de Masa Corporal (IMC)</p>
+            <ul class="list-disc pl-6 mt-1 m-0">
+              <li>Indicador antropométrico que relaciona la masa corporal con la estatura para estimar el estado nutricional del individuo. Ajustado por percentiles de edad y sexo para determinar sobrepeso u obesidad.</li>
+            </ul>
+          </div>
+          <div>
+            <p class="gotham-black-title text-black m-0">6. Variables Sociodemográficas (Sexo y Edad)</p>
+            <ul class="list-disc pl-6 mt-1 m-0">
+              <li>Registrando el sexo (varón/mujer) y la edad cronológica reportada en años cumplidos (de 12 a 16 años).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-analisis" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop bg-black/40 hidden">
+      <div class="bg-white modal-card-simulador max-w-xl w-full p-8 sm:p-10 relative">
+        <button onclick="closeModalSimulador('modal-analisis')" class="close-btn-simulador absolute top-6 right-6" aria-label="Cerrar">X</button>
+        <h3 class="text-2xl sm:text-3xl gotham-black-title text-black mb-6">Análisis Estadístico</h3>
+        <div class="content-section-demo1 text-gray-700 text-base sm:text-lg">
+          <p class="m-0 leading-relaxed">Se estableciendo un nivel de significancia de p &le; 0,05. Se realizaron análisis descriptivos, la prueba de normalidad Kolmogorov-Smirnov, la prueba t de Student con Levene para comparar medias, correlaciones de Pearson y regresión lineal múltiple.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 my-16">
+      <div id="quiz-intro" class="quiz-card text-center p-10 sm:p-14">
+        <h2 class="text-3xl sm:text-4xl gotham-black-title text-black mb-4">
+          Después de leer el resumen del artículo...
+        </h2>
+        <h3 class="text-2xl sm:text-3xl gotham-black-title text-black mb-6">
+          ¡Estás listo para analizarlo como todo un experto!
+        </h3>
+        <p class="text-gray-500 text-base sm:text-lg mb-10">
+          (Todavía no vamos a interpretar los resultados, eso será algo que aprenderás más adelante...)
+        </p>
+        <button onclick="startQuiz()" class="btn-dark-navy">
+          ¡Comencemos!
+        </button>
+      </div>
+
+      <div id="quiz-container" class="quiz-card hidden">
+        <!-- Pregunta 1 -->
+        <div id="q1-block" class="question-step">
+          <h2 class="text-2xl sm:text-3xl gotham-black-title text-black mb-2">
+            Módulo 1: Metodología y Tipo de Muestreo
+          </h2>
+          <p class="text-gray-400 text-sm mb-4">Pregunta 1</p>
+          <p class="text-gray-800 text-base sm:text-lg mb-8 leading-relaxed">
+            En la sección de Materiales y Método, los autores explican que seleccionaron a los 648 participantes mediante un muestreo aleatorio simple en seis centros de Educación Secundaria Obligatoria. Al interpretar la validez de este artículo científico, ¿qué implica haber utilizado este tipo de muestreo probabilístico?
+          </p>
+
+          <div class="space-y-4 mb-8" id="q1-options">
+            <button onclick="selectOption('q1', 'A')" id="q1-opt-A" class="option-btn">
+              A) Porque la aleatoriedad garantiza que todos los adolescentes seleccionados tengan exactamente el mismo valor de IMC, eliminando la variabilidad de los datos
+            </button>
+            <button onclick="selectOption('q1', 'B')" id="q1-opt-B" class="option-btn">
+              B) Porque el muestreo aleatorio transforma automáticamente cualquier variable cualitativa discreta en una variable cuantitativa continua.
+            </button>
+            <button onclick="selectOption('q1', 'C')" id="q1-opt-C" class="option-btn">
+              C) Porque cada integrante de la población tiene la misma probabilidad de ser seleccionado, reduciendo el riesgo de sesgos de selección y favoreciendo que la muestra represente a la población.
+            </button>
+            <button onclick="selectOption('q1', 'D')" id="q1-opt-D" class="option-btn">
+              D) Porque si no se usa un muestreo aleatorio, está prohibido utilizar cualquier tipo de gráfico o tabla en el artículo científico.
+            </button>
+          </div>
+
+          <div id="q1-feedback" class="my-6 hidden"></div>
+
+          <div class="flex justify-center sm:justify-end">
+            <button id="q1-submit-btn" onclick="submitAnswer('q1')" class="btn-dark-navy">Enviar</button>
+            <button id="q1-next-btn" onclick="nextQuestion(2)" class="btn-dark-navy hidden">Siguiente &rarr;</button>
+          </div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div id="q2-block" class="question-step hidden">
+          <h2 class="text-2xl sm:text-3xl gotham-black-title text-black mb-2">
+            Módulo 2: Teorema del Límite Central (TLC) y Tamaño Muestral
+          </h2>
+          <p class="text-gray-400 text-sm mb-4">Pregunta 2</p>
+          <p class="text-gray-800 text-base sm:text-lg mb-8 leading-relaxed">
+            En la sección de Materiales y Método, los autores señalan que evaluaron a una muestra de <strong>n = 648 adolescentes</strong>. Desde el punto de vista del Teorema del Límite Central (TLC) y la interpretación de artículos científicos, ¿cuál es la implicación principal de contar con este tamaño de muestra?
+          </p>
+
+          <div class="space-y-4 mb-8" id="q2-options">
+            <button onclick="selectOption('q2', 'A')" id="q2-opt-A" class="option-btn">
+              A) Garantiza que la distribución del Índice de Masa Corporal (IMC) de los adolescentes sea perfectamente normal y simétrica en la población.
+            </button>
+            <button onclick="selectOption('q2', 'B')" id="q2-opt-B" class="option-btn">
+              B) Permite asumir que la distribución del promedio muestral de las variables cuantitativas se aproxima a una distribución normal, facilitando la inferencia sobre la población estudiada.
+            </button>
+            <button onclick="selectOption('q2', 'C')" id="q2-opt-C" class="option-btn">
+              C) Exime a los investigadores de tener que verificar la validez o precisión de sus instrumentos de medición (como los cuestionarios).
+            </button>
+            <button onclick="selectOption('q2', 'D')" id="q2-opt-D" class="option-btn">
+              D) Significa que no existió ningún tipo de error aleatorio o sesgo en la recolección de los datos.
+            </button>
+          </div>
+
+          <div id="q2-feedback" class="my-6 hidden"></div>
+
+          <div class="flex justify-center sm:justify-end">
+            <button id="q2-submit-btn" onclick="submitAnswer('q2')" class="btn-dark-navy">Enviar</button>
+            <button id="q2-next-btn" onclick="nextQuestion(3)" class="btn-dark-navy hidden">Siguiente &rarr;</button>
+          </div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div id="q3-block" class="question-step hidden">
+          <h2 class="text-2xl sm:text-3xl gotham-black-title text-black mb-2">
+            Módulo 3: Pruebas Paramétricas vs. No Paramétricas
+          </h2>
+          <p class="text-gray-400 text-sm mb-4">Pregunta 3</p>
+          <p class="text-gray-800 text-base sm:text-lg mb-8 leading-relaxed">
+            En la sección de Análisis de datos, los autores mencionan: "Se realizaron pruebas de normalidad (test de Kolmogorov-Smirnov)... Para comprobar las relaciones entre variables se realizó la prueba t de Student para muestras independientes". ¿Por qué fue necesario realizar la prueba de Kolmogorov-Smirnov antes de aplicar la prueba t de Student?
+          </p>
+
+          <div class="space-y-4 mb-8" id="q3-options">
+            <button onclick="selectOption('q3', 'A')" id="q3-opt-A" class="option-btn">
+              A) Para transformar los datos cualitativos en datos cuantitativos contables.
+            </button>
+            <button onclick="selectOption('q3', 'B')" id="q3-opt-B" class="option-btn">
+              B) Para verificar el supuesto de normalidad de las variables cuantitativas y justificar el uso de una prueba paramétrica como la t de Student.
+            </button>
+            <button onclick="selectOption('q3', 'C')" id="q3-opt-C" class="option-btn">
+              C) Porque la prueba t de Student es una prueba no paramétrica que requiere verificar si la muestra es pequeña.
+            </button>
+            <button onclick="selectOption('q3', 'D')" id="q3-opt-D" class="option-btn">
+              D) Para calcular automáticamente la correlación entre la dieta mediterránea y el consumo de alcohol.
+            </button>
+          </div>
+
+          <div id="q3-feedback" class="my-6 hidden"></div>
+
+          <div class="flex justify-center sm:justify-end">
+            <button id="q3-submit-btn" onclick="submitAnswer('q3')" class="btn-dark-navy">Enviar</button>
+            <button id="q3-next-btn" onclick="nextQuestion(4)" class="btn-dark-navy hidden">Siguiente &rarr;</button>
+          </div>
+        </div>
+
+        <!-- Pregunta 4 -->
+        <div id="q4-block" class="question-step hidden">
+          <h2 class="text-2xl sm:text-3xl gotham-black-title text-black mb-2">
+            Módulo 4: Criterio de Selección: Paramétrico vs. No Paramétrico
+          </h2>
+          <p class="text-gray-400 text-sm mb-4">Pregunta 4</p>
+          <p class="text-gray-800 text-base sm:text-lg mb-8 leading-relaxed">
+            Imagina que al revisar las variables del artículo, observas que una de ellas (por ejemplo, el consumo de alcohol o las categorías del test KIDMED) presenta una distribución fuertemente asimétrica que no cumple el supuesto de normalidad. Si los autores hubieran tenido que analizar esa variable sin distribución normal, ¿qué decisión metodológica habrían debido tomar?
+          </p>
+
+          <div class="space-y-4 mb-8" id="q4-options">
+            <button onclick="selectOption('q4', 'A')" id="q4-opt-A" class="option-btn">
+              A) Utilizar una prueba no paramétrica (como la prueba U de Mann-Whitney o Kruskal-Wallis), ya que estas no dependen del supuesto de normalidad de los datos.
+            </button>
+            <button onclick="selectOption('q4', 'B')" id="q4-opt-B" class="option-btn">
+              B) Utilizar la prueba t de Student de todas formas, ignorando la distribución de los datos porque el tamaño de la muestra siempre vuelve paramétrica a cualquier variable.
+            </button>
+            <button onclick="selectOption('q4', 'C')" id="q4-opt-C" class="option-btn">
+              C) Eliminar de la muestra a todos los participantes que no tengan valores simétricos para forzar la normalidad.
+            </button>
+            <button onclick="selectOption('q4', 'D')" id="q4-opt-D" class="option-btn">
+              D) Aplicar el coeficiente de Pearson, ya que es la única prueba capaz de analizar datos categóricos no paramétricos.
+            </button>
+          </div>
+
+          <div id="q4-feedback" class="my-6 hidden"></div>
+
+          <div class="flex justify-center sm:justify-end">
+            <button id="q4-submit-btn" onclick="submitAnswer('q4')" class="btn-dark-navy">Enviar</button>
+            <button id="q4-next-btn" onclick="finishQuiz()" class="btn-dark-navy hidden">Finalizar</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="quiz-complete" class="quiz-card text-center p-12 sm:p-16 hidden">
+        <h2 class="text-4xl sm:text-5xl md:text-6xl gotham-black-title text-black mb-6">
+          ¡Misión cumplida!
+        </h2>
+        <p class="text-gray-700 text-xl sm:text-2xl leading-relaxed">
+          Has completado exitosamente el análisis del artículo y dominas los conceptos clave de la distribución normal y prueba de hipótesis.
+        </p>
+      </div>
+    </div>
+
+    <div id="section-cuantik2" class="max-w-4xl mx-auto px-4 sm:px-8 my-16 hidden">
+      <div class="content-section-demo1 space-y-6 mb-12">
+        <p class="text-gray-800 text-lg sm:text-xl leading-relaxed m-0">
+          Como habrás notado en el resumen o en el artículo, los investigadores no reportan de manera explícita cómo se distribuyeron los datos ni presentan el resultado de la prueba de normalidad, ya que asumen que el lector conoce la importancia de estos aspectos.
+        </p>
+        
+        <p class="text-gray-800 text-lg sm:text-xl leading-relaxed m-0">
+          Por ello, es <strong>fundamental comprender cómo funciona la distribución normal y por qué es relevante</strong> en el análisis de datos, pues constituye un elemento clave para interpretar correctamente los resultados de muchas investigaciones.
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-start gap-6 sm:gap-10 my-8">
+        <img 
+          src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@81b341a977486a1dbaa1788e6c068f6759bfba31/Cuantik2.svg" 
+          alt="Personaje Cuantik 2" 
+          class="w-28 sm:w-36 h-auto object-contain select-none flex-shrink-0"
+        />
+        <div class="content-section-demo1">
+          <p class="text-gray-800 text-lg sm:text-xl leading-relaxed m-0">
+            <strong>¡Muy bien!</strong> Esto ha sido todo por este tema. Ahora estás listo para realizar la evaluación en Moodle y reconocer la importancia de la distribución normal en la investigación, un conocimiento fundamental para avanzar hacia una Práctica Basada en la Evidencia.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-8 pt-6 flex justify-between gap-4">
+      <button onclick="goToPage(7)" class="btn-nav-prev">
+        &larr; Atrás
+      </button>
+      <button onclick="goToPage(9)" class="btn-nav-next">
+        Siguiente &rarr;
+      </button>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 9: ALFA_DEMO_8_2 (Referencias Bibliográficas) -->
+  <div id="page-9" class="page-section pb-24">
+    <div class="max-w-4xl mx-auto space-y-10 px-4 sm:px-8 py-8">
+      
+      <!-- ENCABEZADO -->
+      <div class="flex items-center gap-6">
+        <img 
+          src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@98a9a73b562e6a8effa19b783627483f539ea3c5/Focozul.svg" 
+          alt="Personaje Foco Azul" 
+          class="w-20 sm:w-24 h-auto object-contain select-none flex-shrink-0"
+        />
+        <div>
+          <h1 class="main-title-ref">
+            <span class="underline-text-ref">Referencias</span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- LISTA DE REFERENCIAS -->
+      <div id="references-container" class="space-y-6 pt-4">
+        
+        <p class="reference-item">
+          Das, K., &amp; Imon, A. (2016). A Brief Review of Tests for Normality. <em>American Journal of Theoretical and Applied Statistics</em>, 5, 5. <a href="https://doi.org/10.11648/j.ajtas.20160501.12" target="_blank" rel="noopener noreferrer" class="reference-link">https://doi.org/10.11648/j.ajtas.20160501.12</a>
+        </p>
+
+        <p class="reference-item">
+          Efron, B., &amp; Tibshirani, R. (1986). Métodos Bootstrap para Errores Estándar, Intervalos de Confianza y Otras Medidas de Precisión Estadística. <em>Ciencia Estadística</em>, 1, 54-75. <a href="https://doi.org/10.1214/ss/1177013815" target="_blank" rel="noopener noreferrer" class="reference-link">https://doi.org/10.1214/ss/1177013815</a>
+        </p>
+
+        <p class="reference-item">
+          Gelman, A. (2023). What is a standard error?. <em>Journal of econometrics</em>, 237. <a href="https://doi.org/10.1016/j.jeconom.2023.105516" target="_blank" rel="noopener noreferrer" class="reference-link">https://doi.org/10.1016/j.jeconom.2023.105516</a>
+        </p>
+
+        <p class="reference-item">
+          Gosselin, R.-D. (2024). Testing for normality: a user’s (cautionary) guide. <em>Laboratory Animals</em>, 58, 433 - 437. <a href="https://doi.org/10.1177/00236772241276808" target="_blank" rel="noopener noreferrer" class="reference-link">https://doi.org/10.1177/00236772241276808</a>
+        </p>
+
+        <p class="reference-item">
+          Howell, D. C. (2010). The normal distribution. En <em>Statistical methods for psychology</em> (7.ª ed.). Wadsworth, Cengage Learning.
+        </p>
+
+        <p class="reference-item">
+          Kwak, S., &amp; Kim, J. H. (2017). Central limit theorem: the cornerstone of modern statistics. <em>Korean Journal of Anesthesiology</em>, 70, 144 - 156. <a href="https://doi.org/10.4097/kjae.2017.70.2.144" target="_blank" rel="noopener noreferrer" class="reference-link">https://doi.org/10.4097/kjae.2017.70.2.144</a>
+        </p>
+
+        <p class="reference-item">
+          Nascimento, J., Batista, L. G., Barbosa, W. F., Belo, L. P., Silva, J., Costa, G. S., &amp; Emiliano, P. (2024). Data transformations for ANOVA assumption violations in agrarian sciences subfields: a systematic review, simulation study, and practical guidelines. <em>REVISTA DELOS</em>. <a href="https://doi.org/10.55905/rdelosv17.n61-138" target="_blank" rel="noopener noreferrer" class="reference-link">https://doi.org/10.55905/rdelosv17.n61-138</a>
+        </p>
+
+        <p class="reference-item">
+          Yap, B. W., &amp; Sim, C. H. (2011). Comparisons of various types of normality tests. <em>Journal of Statistical Computation and Simulation</em>, 81(12), 2141-2155. <a href="https://doi.org/10.1080/00949655.2010.520163" target="_blank" rel="noopener noreferrer" class="reference-link">https://doi.org/10.1080/00949655.2010.520163</a>
+        </p>
+
+        <p class="reference-item">
+          Zhang, X., Astivia, O. L. O., Kroc, E., &amp; Zumbo, B. (2022). Cómo pensar con claridad sobre el teorema del límite central. <em>Métodos psicológicos</em>. <a href="https://doi.org/10.1037/met0000448" target="_blank" rel="noopener noreferrer" class="reference-link">https://doi.org/10.1037/met0000448</a>
+        </p>
+
+      </div>
+
+      <!-- BOTONES DE ACCIÓN: COPIAR Y REGRESAR AL INICIO -->
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-6">
+        <button onclick="goToPage(8)" class="btn-nav-prev">
+          &larr; Atrás
+        </button>
+
+        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <button onclick="copyAllReferences()" class="btn-copy-purple">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+            Copiar referencias
+          </button>
+
+          <button onclick="goToPage(1)" class="btn-nav-next">
+            Regresar al Inicio &#x21A9;
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- NOTIFICACIÓN DE COPIADO GENERAL -->
+  <div id="toast" class="toast-msg">
+    ¡Respuesta copiada al portapapeles!
+  </div>
+
+  <!-- MODAL DE PREGUNTAS DEL ROMPECABEZAS -->
+  <div id="question-modal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal-backdrop bg-black/50 p-4">
+    <div class="w-full max-w-lg rounded-2xl p-6 shadow-2xl fade-up bg-white border border-gray-200">
+      <div class="flex items-center gap-2 mb-4">
+        <h2 id="q-number" class="font-gotham-bold text-xl text-[#c2005d]">Pieza 1</h2>
+      </div>
+      <p id="q-text" class="font-gotham-light text-base mb-5 text-[#06004c]"></p>
+      <div id="q-options" class="grid gap-3"></div>
+      <p id="q-feedback" class="mt-4 text-sm font-gotham-light hidden rounded-lg p-3"></p>
+      <button id="q-next" class="mt-4 hidden w-full py-3 rounded-xl font-gotham-bold text-white bg-[#c2005d] hover:bg-[#5e0047] transition uppercase" onclick="closePuzzleModal()">Continuar</button>
+    </div>
+  </div>
+
+  <!-- MODAL DE INFORMACIÓN DIVERSA (PLOTLY Y NORMALIDAD) -->
+  <div id="modal-overlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm hidden flex items-center justify-center z-50 transition-opacity duration-300 opacity-0 p-4">
+    <div id="modal-card" class="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 w-11/12 max-w-xl transform scale-95 transition-transform duration-300 relative border border-gray-100">
+      <button id="close-modal-btn" class="absolute top-6 right-6 w-10 h-10 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-full flex items-center justify-center text-xl font-black transition-colors focus:outline-none">
+        ✕
+      </button>
+      <div id="modal-content" class="text-left pt-2"></div>
+    </div>
+  </div>
+
+  <!-- Scripts Interactivos generales y Lógica de Navegación -->
+  <script>
+    // Menú Hamburguesa
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const navDropdown = document.getElementById('nav-dropdown');
+
+    hamburgerBtn.addEventListener('click', () => {
+      navDropdown.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!hamburgerBtn.contains(event.target) && !navDropdown.contains(event.target)) {
+        navDropdown.classList.add('hidden');
+      }
+    });
+
+    // Control de Navegación entre Páginas
+    let plotlyInitialized = false;
+    let canvasInitialized = false;
+
+    function goToPage(pageNumber) {
+      document.querySelectorAll('.page-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      const targetPage = document.getElementById(`page-${pageNumber}`);
+      if (targetPage) {
+        targetPage.classList.add('active');
+      }
+      navDropdown.classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Página 3: Plotly
+      if (pageNumber === 3) {
+        setTimeout(() => {
+          if (!plotlyInitialized) {
+            initPlotlyChart();
+            plotlyInitialized = true;
+          } else {
+            Plotly.Plots.resize(document.getElementById('chart'));
+          }
+        }, 100);
+      }
+
+      // Página 4: Canvas Transformación
+      if (pageNumber === 4 && !canvasInitialized) {
+        initCanvasTransform();
+        canvasInitialized = true;
+      }
+    }
+
+    /* Modal Generales */
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalCard = document.getElementById('modal-card');
+    const modalContent = document.getElementById('modal-content');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+
+    function openModalPlotly(data) {
+      modalContent.innerHTML = `
+        <h2 class="text-2xl sm:text-3xl font-black text-gray-900 mb-6">${data.title}</h2>${data.html}
+      `;
+      showModal();
+    }
+
+    const modalDataNormalidad = {
+      parametricas: {
+        title: "Pruebas Paramétricas",
+        desc: "Estas pruebas de hipótesis necesitan asumir una distribución normal porque su funcionamiento matemático se basa en ella. Ejemplo:",
+        items: [
+          { bold: "t de Student:", text: "Compara medias entre dos grupos." },
+          { bold: "ANOVA:", text: "Compara medias entre tres o más grupos." },
+          { bold: "Correlación de Pearson:", text: "Evalúa la relación lineal entre dos variables." },
+          { bold: "Regresión lineal:", text: "Estima relaciones entre variables y predice valores." }
+        ]
+      },
+      noparametricas: {
+        title: "Pruebas No paramétricas",
+        desc: "Estas pruebas de hipótesis no necesitan asumir una distribución normal, ya que su funcionamiento no depende de este supuesto. Ejemplo:",
+        items: [
+          { bold: "U de Mann-Whitney y Wilcoxon:", text: "Compara distribuciones entre dos grupos." },
+          { bold: "Kruskal-Wallis y Friedman:", text: "Compara distribuciones entre tres o más grupos." },
+          { bold: "Correlación de spearman:", text: "Evalúa si dos variables están relacionadas entre sí." },
+          { bold: "Chi-cuadrada:", text: "Evalúa asociación entre variables categóricas." }
+        ]
+      }
+    };
+
+    function openModalNormalidad(type) {
+      const data = modalDataNormalidad[type];
+      if (!data) return;
+
+      let itemsHtml = data.items.map(item => `
+        <li class="mb-3 text-gray-700 text-base sm:text-lg leading-snug">
+          <span class="highlight-bold">${item.bold}</span>${item.text}
+        </li>
+      `).join('');
+
+      modalContent.innerHTML = `
+        <h2 class="text-2xl sm:text-3xl gotham-black-title text-gray-900 mb-4">${data.title}</h2>
+        <p class="text-gray-700 text-base sm:text-lg mb-6 leading-relaxed">${data.desc}</p>
+        <ul class="list-none pl-0 space-y-2">
+          ${itemsHtml}
+        </ul>
+      `;
+      showModal();
+    }
+
+    function showModal() {
+      modalOverlay.classList.remove('hidden');
+      setTimeout(() => {
+        modalOverlay.classList.remove('opacity-0');
+        modalCard.classList.remove('scale-95');
+        modalCard.classList.add('scale-100');
+      }, 10);
+    }
+
+    function closeModal() {
+      modalOverlay.classList.add('opacity-0');
+      modalCard.classList.remove('scale-100');
+      modalCard.classList.add('scale-95');
+      setTimeout(() => {
+        modalOverlay.classList.add('hidden');
+      }, 300);
+    }
+
+    closeModalBtn.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modalOverlay.classList.contains('hidden')) closeModal();
+    });
+
+    /* Lógica Plotly (Página 3) */
+    const mu = 16.29;
+    const sigma = 1.5;
+    const xMin = 9.0;
+    const xMax = mu + 3 * sigma;
+    const points = 500;
+
+    function normalPDF(x, mean, std) {
+      const exponent = -0.5 * Math.pow((x - mean) / std, 2);
+      return (1 / (std * Math.sqrt(2 * Math.PI))) * Math.exp(exponent);
+    }
+
+    const xValues = [];
+    const yValues = [];
+    const step = (xMax - xMin) / (points - 1);
+
+    for (let i = 0; i < points; i++) {
+      const val = xMin + i * step;
+      xValues.push(val);
+      yValues.push(normalPDF(val, mu, sigma));
+    }
+
+    const tickvals = [];
+    const ticktext = [];
+    for (let val = 10; val <= 20; val++) {
+      tickvals.push(val);
+      ticktext.push(val.toString());
+    }
+
+    const interactiveButtons = [
+      {
+        id: 1, x: 16.29, y: 0.27, title: "Forma",
+        html: `
+          <p class="text-base text-gray-700 mb-3">Es <span class="highlight-bold">simétrica</span>, es decir, tiene la misma forma en ambos lados de su centro.</p>
+          <p class="text-base text-gray-700 mb-3">Es <span class="highlight-bold">unimodal</span>, un solo pico/curva principal que coincide con las medidas de tendencia central</p>
+          <p class="text-base text-gray-700">Es <span class="highlight-bold">mesocúrtica</span>; esto significa que sus colas no son ni muy delgadas ni muy gruesas, y tiene una concentración moderada de datos en el centro.</p>
+        `
+      },
+      {
+        id: 2, x: 8.4, y: 0.17, title: "Ejes",
+        html: `
+          <p class="text-base text-gray-700 mb-4">El eje <span class="highlight-bold">vertical</span> se denomina densidad de probabilidad: Las partes más altas de la curva indican áreas donde los valores son más probables.</p>
+          <p class="text-base text-gray-700">El eje <span class="highlight-bold">horizontal</span> representa el valor de la variable, para el caso de la variables continuas (como el tiempo) la probabilidad de obtener un valor exacto es cero, por lo que se calculan como el área bajo la curva entre dos puntos.</p>
+        `
+      },
+      {
+        id: 3, x: 15.54, y: 0.19, title: "Parametros",
+        html: `
+          <p class="text-base text-gray-700 mb-3">La <span class="highlight-bold">desviación estándar</span> de la población/muestra, indica la dispersión o anchura de la campana (en este caso la DE es 2).</p>
+          <p class="text-base text-gray-700 mb-3">La <span class="highlight-bold">media</span> de la población/muestra, determina el centro de la distribución (en este caso el tiempo promedio en universitarios no atletas para correr 100 metros planos es 16.29 segundos).</p>
+          <p class="text-base text-gray-700">En una distribución normal perfectamente simétrica, las <span class="highlight-bold">tres medidas de tendencia central</span> coinciden en el centro de la distribución</p>
+        `
+      },
+      {
+        id: 4, x: 16.29, y: 0.08, title: "Area bajo la curva (azul claro)",
+        html: `
+          <p class="text-base text-gray-700 mb-4">El área total bajo la curva es igual al total de todas las probabilidades individuales que equivale al 100%.</p>
+          <p class="text-base text-gray-700">En este caso, el total de todos los tiempos individuales posibles es igual al 100%</p>
+        `
+      },
+      {
+        id: 5, x: 9.4, y: -0.042, title: "Respondamos...",
+        html: `
+          <div class="flex flex-col sm:flex-row items-center gap-4">
+            <div class="flex-1">
+              <p class="text-base text-gray-700 mb-3">El top 100 atletas profesionales masculinos ronda entre los 9.82 y 10.09 seg</p>
+              <p class="text-base text-gray-700 mb-3">El récord de Usain Bolt, de 9.58 segundos, se encuentra 6.71 segundos ¡por debajo de la media!</p>
+              <p class="text-base text-gray-700">Es decir, superar la marca de Usain Bolt sería un resultado extremadamente improbable, pues se encuentra muy lejos de lo que normalmente se observa dentro de esta distribución (simulada).</p>
+            </div>
+            <div class="w-32 flex-shrink-0">
+              <img src="https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@7ff69b066304712d281d6580f8eca4ba8588e4d7/Shock_Jitik.svg" alt="Shock Jitik" class="w-full h-auto object-contain" />
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    function initPlotlyChart() {
+      const traces = [
+        {
+          x: xValues.concat([...xValues].reverse()),
+          y: yValues.concat(new Array(points).fill(0)),
+          fill: 'toself',
+          fillcolor: 'rgba(215, 227, 244, 0.7)',
+          line: { color: 'transparent' },
+          hoverinfo: 'skip',
+          showlegend: false
+        },
+        {
+          x: xValues,
+          y: yValues,
+          mode: 'lines',
+          line: { color: '#090847', width: 3 },
+          hoverinfo: 'skip'
+        },
+        {
+          x: interactiveButtons.map(d => d.x),
+          y: interactiveButtons.map(d => d.y),
+          mode: 'markers+text',
+          type: 'scatter',
+          marker: { color: 'black', size: 28, symbol: 'circle' },
+          text: interactiveButtons.map(() => '+'),
+          textposition: 'middle center',
+          textfont: { color: 'white', size: 20, family: 'Gotham Black, sans-serif', weight: 'bold' },
+          hoverinfo: 'text',
+          hovertext: interactiveButtons.map(d => `Punto ${d.id}:${d.title}`)
+        }
+      ];
+
+      const layout = {
+        template: 'simple_white',
+        autosize: true,
+        margin: { l: 60, r: 80, t: 50, b: 60 },
+        font: { family: 'Gotham Light, sans-serif', size: 13, color: '#1a1a1a' },
+        xaxis: { title: 'Tiempo', showline: true, linecolor: '#1a1a1a', tickvals: tickvals, ticktext: ticktext, range: [8.0, 20.8], fixedrange: true },
+        yaxis: { title: 'Probabilidad', showline: true, linecolor: '#1a1a1a', range: [-0.05, 0.31], fixedrange: true },
+        shapes: [
+          { type: 'line', x0: mu, x1: mu, y0: 0, y1: 0.27, line: { color: '#1a1a1a', width: 1.5 } },
+          { type: 'line', x0: 15.04, x1: 16.29, y0: 0.19, y1: 0.19, line: { color: '#8b0000', width: 2 } },
+          { type: 'line', x0: 15.04, x1: 15.04, y0: 0.183, y1: 0.197, line: { color: '#8b0000', width: 2 } },
+          { type: 'line', x0: 16.29, x1: 16.29, y0: 0.183, y1: 0.197, line: { color: '#8b0000', width: 2 } }
+        ],
+        showlegend: false
+      };
+
+      const chartDiv = document.getElementById('chart');
+
+      Plotly.newPlot(chartDiv, traces, layout, {
+        responsive: true, displayModeBar: false, scrollZoom: false, doubleClick: false, staticPlot: false, cliponaxis: false
+      }).then(() => {
+        chartDiv.on('plotly_click', function(data) {
+          if (!data || !data.points || data.points.length === 0) return;
+          const point = data.points[0];
+          if (point.curveNumber === 2) {
+            openModalPlotly(interactiveButtons[point.pointIndex]);
+          }
+        });
+      });
+    }
+
+    /* Lógica de Carrusel Página 4 */
+    let currentSlideDemo2 = 0;
+    const slidesDemo2 = document.querySelectorAll('.carousel-slide-demo2');
+    const totalSlidesDemo2 = slidesDemo2.length;
+
+    function showSlideDemo2(index) {
+      slidesDemo2.forEach((slide, i) => {
+        if (i === index) slide.classList.remove('hidden');
+        else slide.classList.add('hidden');
+      });
+    }
+
+    document.getElementById('prev-btn-demo2').addEventListener('click', () => {
+      currentSlideDemo2 = (currentSlideDemo2 - 1 + totalSlidesDemo2) % totalSlidesDemo2;
+      showSlideDemo2(currentSlideDemo2);
+    });
+
+    document.getElementById('next-btn-demo2').addEventListener('click', () => {
+      currentSlideDemo2 = (currentSlideDemo2 + 1) % totalSlidesDemo2;
+      showSlideDemo2(currentSlideDemo2);
+    });
+
+    /* Lógica de Carrusel Página 5 */
+    let currentSlideDemo3 = 0;
+    const slidesDemo3 = document.querySelectorAll('.carousel-slide-demo3');
+    const totalSlidesDemo3 = slidesDemo3.length;
+
+    function showSlideDemo3(index) {
+      slidesDemo3.forEach((slide, i) => {
+        if (i === index) slide.classList.remove('hidden');
+        else slide.classList.add('hidden');
+      });
+    }
+
+    document.getElementById('prev-btn-demo3').addEventListener('click', () => {
+      currentSlideDemo3 = (currentSlideDemo3 - 1 + totalSlidesDemo3) % totalSlidesDemo3;
+      showSlideDemo3(currentSlideDemo3);
+    });
+
+    document.getElementById('next-btn-demo3').addEventListener('click', () => {
+      currentSlideDemo3 = (currentSlideDemo3 + 1) % totalSlidesDemo3;
+      showSlideDemo3(currentSlideDemo3);
+    });
+
+    /* Lógica del Canvas de Transformación (Página 4) */
+    let canvas, ctx, tituloSimulador;
+    let width, height, padding;
+    let t = 0;
+    let enAnimacion = false;
+    let direccion = 1;
+
+    function fSesgada(x) {
+      if (x <= 0) return 0;
+      return 1.1 * Math.sqrt(x) * Math.exp(-1.2 * x);
+    }
+
+    function fNormal(x) {
+      const mean = 4.5;
+      const sigmaVal = 1.0;
+      return 0.9 * Math.exp(-0.5 * Math.pow((x - mean) / sigmaVal, 2));
+    }
+
+    function easeInOutCubic(x) {
+      return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    }
+
+    function initCanvasTransform() {
+      canvas = document.getElementById('canvas-transform');
+      ctx = canvas.getContext('2d');
+      tituloSimulador = document.getElementById('titulo-simulador');
+
+      width = canvas.width;
+      height = canvas.height;
+      padding = 60;
+
+      renderCanvas();
+    }
+
+    function dibujarEjes() {
+      ctx.strokeStyle = '#1a1a1a';
+      ctx.lineWidth = 2;
+      
+      ctx.beginPath();
+      ctx.moveTo(padding, height - padding);
+      ctx.lineTo(width - padding, height - padding);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(padding, height - padding);
+      ctx.lineTo(padding, padding);
+      ctx.stroke();
+
+      ctx.fillStyle = '#1a1a1a';
+      ctx.font = '16px "Gotham Light", sans-serif';
+      ctx.fillText('x', width - padding + 15, height - padding + 5);
+      ctx.fillText('f(x)', padding - 15, padding - 15);
+    }
+
+    function renderCanvas() {
+      ctx.clearRect(0, 0, width, height);
+      dibujarEjes();
+
+      const progress = easeInOutCubic(t);
+
+      const r = Math.round(30 + (13 - 30) * progress);
+      const g = Math.round(58 + (148 - 58) * progress);
+      const b = Math.round(138 + (136 - 138) * progress);
+      const strokeColor = `rgb(${r}, ${g},${b})`;
+      const fillColor = `rgba(${r}, ${g},${b}, 0.35)`;
+
+      ctx.beginPath();
+      ctx.moveTo(padding, height - padding);
+
+      const xMax = 9.5;
+      const pointsArr = [];
+
+      for (let px = 0; px <= width - 2 * padding; px += 2) {
+        const xVal = (px / (width - 2 * padding)) * xMax;
+
+        const ySesgada = fSesgada(xVal);
+        const yNormal = fNormal(xVal);
+        const yVal = ySesgada * (1 - progress) + yNormal * progress;
+
+        const py = (height - padding) - yVal * (height - 2 * padding);
+        pointsArr.push({ x: px + padding, y: py });
+      }
+
+      ctx.fillStyle = fillColor;
+      ctx.beginPath();
+      ctx.moveTo(pointsArr[0].x, height - padding);
+      pointsArr.forEach(p => ctx.lineTo(p.x, p.y));
+      ctx.lineTo(pointsArr[pointsArr.length - 1].x, height - padding);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = strokeColor;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      pointsArr.forEach((p, index) => {
+        if (index === 0) ctx.moveTo(p.x, p.y);
+        else ctx.lineTo(p.x, p.y);
+      });
+      ctx.stroke();
+
+      if (t > 0.1 && t < 0.9) {
+        ctx.fillStyle = '#b91c1c';
+        ctx.font = 'bold 22px "Gotham Black", sans-serif';
+        ctx.fillText('y = ln(x)', width / 2 - 45, padding + 35);
+      }
+    }
+
+    function animarCanvas() {
+      if (!enAnimacion) return;
+
+      t += 0.015 * direccion;
+
+      if (t >= 1) {
+        t = 1;
+        enAnimacion = false;
+        tituloSimulador.innerText = "Distribución Normal (Transformada)";
+      } else if (t <= 0) {
+        t = 0;
+        enAnimacion = false;
+        tituloSimulador.innerText = "Distribución Sesgada a la Derecha";
+      }
+
+      renderCanvas();
+
+      if (enAnimacion) {
+        requestAnimationFrame(animarCanvas);
+      }
+    }
+
+    function toggleAnimacion() {
+      if (enAnimacion) return;
+      direccion = t === 0 ? 1 : -1;
+      enAnimacion = true;
+      animarCanvas();
+    }
+
+    /* Lógica ALFA_DEMO_4 (Simulador - AHORA PÁGINA 8) */
+    function openModalSimulador(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+    function closeModalSimulador(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    const quizData = {
+      q1: {
+        correct: 'C',
+        explanations: {
+          A: 'A es incorrecta: El muestreo aleatorio no elimina la variabilidad; al contrario, refleja la variabilidad real y natural de la población.',
+          B: 'B es incorrecta: El tipo de muestreo no cambia la escala de medición de una variable ni prohíbe la presentación gráfica de los resultados.',
+          C: 'El muestreo aleatorio asegura que cada individuo tenga la misma probabilidad de ser seleccionado. Esto evita que se seleccionen por error/sesgo solo a adolescentes muy activos o solo a adolescentes con sobrepeso. favorece capturar la variabilidad natural sin sesgos de selección de la variable.<br><br><strong>Por qué las otras opciones no son correctas:</strong><br>&bull; A es incorrecta: El muestreo aleatorio no elimina la variabilidad; al contrario, refleja la variabilidad real y natural de la población.<br>&bull; B y D son incorrectas: El tipo de muestreo no cambia la escala de medición de una variable ni prohíbe la presentación gráfica de los resultados.',
+          D: 'D es incorrecta: El tipo de muestreo no cambia la escala de medición de una variable ni prohíbe la presentación gráfica de los resultados.'
+        }
+      },
+      q2: {
+        correct: 'B',
+        explanations: {
+          A: 'A es incorrecta: El TLC habla sobre la distribución del promedio de la muestra, no garantiza que la variable original (como el IMC) sea perfectamente normal en la población.',
+          B: 'El Teorema del Límite Central (TLC) establece que, al tener una muestra suficientemente grande (en este caso n = 648), la distribución de las medias muestrales se aproximará a una distribución normal, sin importar la forma que tenga la distribución original de la variable en la población. Esto les permite a los autores realizar inferencias confiables sobre el promedio de la población de adolescentes.<br><br><strong>Por qué las otras opciones no son correctas:</strong><br>&bull; A es incorrecta: El TLC habla sobre la distribución del promedio de la muestra, no garantiza que la variable original (como el IMC) sea perfectamente normal en la población.<br>&bull; C y D son incorrectas: El tamaño de la muestra no elimina los sesgos de medición ni los errores metodológicos de los cuestionarios.',
+          C: 'C es incorrecta: El tamaño de la muestra no elimina los sesgos de medición ni los errores metodológicos de los cuestionarios.',
+          D: 'D es incorrecta: El tamaño de la muestra no elimina los sesgos de medición ni los errores metodológicos de los cuestionarios.'
+        }
+      },
+      q3: {
+        correct: 'B',
+        explanations: {
+          A: 'A es incorrecta: La prueba de normalidad no transforma tipos de datos.',
+          B: 'Las pruebas paramétricas (como la t de Student o el análisis de regresión) asumen ciertos requisitos sobre los datos, siendo uno de los principales que la variable continua tenga una distribución normal. El test de Kolmogorov-Smirnov se utiliza precisamente para evaluar si se cumple esta condición de normalidad.<br><br><strong>Por qué las otras opciones no son correctas:</strong><br>&bull; A es incorrecta: La prueba de normalidad no transforma tipos de datos.<br>&bull; C es incorrecta: La prueba t de Student es una prueba paramétrica, no no paramétrica.<br>&bull; D es incorrecta: La correlación se evaluó con la prueba de Pearson, no con Kolmogorov-Smirnov.',
+          C: 'C es incorrecta: La prueba t de Student es una prueba paramétrica, no no paramétrica.',
+          D: 'D es incorrecta: La correlación se evaluó con la prueba de Pearson, no con Kolmogorov-Smirnov.'
+        }
+      },
+      q4: {
+        correct: 'A',
+        explanations: {
+          A: 'Cuando los datos no cumplen los supuestos de normalidad, el camino correcto en la investigación es recurrir a pruebas no paramétricas (como Mann-Whitney o Kruskal-Wallis). A diferencia de las paramétricas, estas no asumen que los datos siguen una distribución con parámetros específicos (como la distribución normal).<br><br><strong>Por qué las otras opciones no son correctas:</strong><br>&bull; B es incorrecta: Aunque el TLC ayuda con muestras grandes, las variables ordinales o con asimetría severa requieren pruebas no paramétricas.<br>&bull; C es incorrecta: Eliminar participantes arbitrariamente introduce un sesgo de selección grave en el estudio.<br>&bull; D es incorrecta: El coeficiente de Pearson es paramétrico y se usa para variables cuantitativas continuas.',
+          B: 'B es incorrecta: Aunque el TLC ayuda con muestras grandes, las variables ordinales o con asimetría severa requieren pruebas no paramétricas.',
+          C: 'C es incorrecta: Eliminar participantes arbitrariamente introduce un sesgo de selección grave en el estudio.',
+          D: 'D es incorrecta: El coeficiente de Pearson es paramétrico y se usa para variables cuantitativas continuas.'
+        }
+      }
+    };
+
+    const selections = { q1: null, q2: null, q3: null, q4: null };
+
+    function startQuiz() {
+      document.getElementById('quiz-intro').classList.add('hidden');
+      document.getElementById('quiz-container').classList.remove('hidden');
+    }
+
+    function selectOption(qId, optKey) {
+      selections[qId] = optKey;
+      const buttons = document.querySelectorAll(`#${qId}-options .option-btn`);
+      buttons.forEach(btn => btn.classList.remove('selected'));
+      const targetBtn = document.getElementById(`${qId}-opt-${optKey}`);
+      if (targetBtn) {
+        targetBtn.classList.add('selected');
+      }
+    }
+
+    function dismissIncorrect(qId, optKey) {
+      const feedbackDiv = document.getElementById(`${qId}-feedback`);
+      feedbackDiv.classList.add('hidden');
+      feedbackDiv.innerHTML = '';
+
+      const failedBtn = document.getElementById(`${qId}-opt-${optKey}`);
+      if (failedBtn) {
+        failedBtn.style.display = 'none';
+      }
+
+      const submitBtn = document.getElementById(`${qId}-submit-btn`);
+      submitBtn.classList.remove('hidden');
+      selections[qId] = null;
+    }
+
+    function submitAnswer(qId) {
+      const selectedKey = selections[qId];
+      if (!selectedKey) return;
+
+      const qInfo = quizData[qId];
+      const feedbackDiv = document.getElementById(`${qId}-feedback`);
+      const submitBtn = document.getElementById(`${qId}-submit-btn`);
+      const nextBtn = document.getElementById(`${qId}-next-btn`);
+
+      feedbackDiv.classList.remove('hidden');
+
+      if (selectedKey === qInfo.correct) {
+        feedbackDiv.className = 'feedback-card-correct my-6 text-gray-800';
+        feedbackDiv.innerHTML = `
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-2xl gotham-black-title text-black">Correcto (${selectedKey}) ¡Excelente deducción!</h3>
+            <button onclick="this.parentElement.parentElement.classList.add('hidden')" class="close-btn-simulador text-sm w-8 h-8">X</button>
+          </div>
+          <p class="text-base sm:text-lg leading-relaxed mt-2">${qInfo.explanations[selectedKey]}</p>
+        `;
+
+        submitBtn.classList.add('hidden');
+        nextBtn.classList.remove('hidden');
+
+        const options = document.querySelectorAll(`#${qId}-options .option-btn`);
+        options.forEach(btn => btn.disabled = true);
+
+      } else {
+        feedbackDiv.className = 'feedback-card-incorrect my-6 text-gray-800';
+        feedbackDiv.innerHTML = `
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-2xl gotham-black-title text-black">¡Incorrecto!</h3>
+            <button onclick="dismissIncorrect('${qId}', '${selectedKey}')" class="close-btn-simulador text-sm w-8 h-8" aria-label="Cerrar">X</button>
+          </div>
+          <p class="text-base sm:text-lg leading-relaxed mt-2">${qInfo.explanations[selectedKey]}</p>
+        `;
+
+        submitBtn.classList.add('hidden');
+      }
+    }
+
+    function nextQuestion(qNum) {
+      document.querySelectorAll('#page-8 .question-step').forEach(step => step.classList.add('hidden'));
+      document.getElementById(`q${qNum}-block`).classList.remove('hidden');
+    }
+
+    function finishQuiz() {
+      document.getElementById('quiz-container').classList.add('hidden');
+      document.getElementById('quiz-complete').classList.remove('hidden');
+      document.getElementById('section-cuantik2').classList.remove('hidden');
+    }
+
+    /* Lógica ALFA_DEMO_10 (Rompecabezas) */
+    const PUZZLE_IMAGE_URL = "https://cdn.jsdelivr.net/gh/papimeunam26/U3_T1-2_IMAGEN@98a9a73b562e6a8effa19b783627483f539ea3c5/Puzzle.png";
+
+    const questions = [
+      {q:"¿Qué medida representa el centro de una distribución normal?", opts:["Mediana","Media","Moda","Rango"], correct:1, fb:"La media es el punto central de la distribución normal. En artículos científicos, verificar si la media representa bien los datos depende de la forma de la distribución."},
+      {q:"¿Cuál es una característica fundamental de la distribución normal?", opts:["Asimetría","Bimodalidad","Simetría","Platicurtosis"], correct:2, fb:"Comprender la simetría ayuda a interpretar cuándo la media representa adecuadamente los datos reportados en un artículo científico."},
+      {q:"¿Qué significa que una distribución sea unimodal?", opts:["Tiene dos picos","No tiene picos","Tiene un solo pico o moda","Es asimétrica"], correct:2, fb:"Reconocer la unimodalidad permite evaluar si los datos provienen de una población homogénea, clave para interpretar resultados de investigación."},
+      {q:"¿Qué indica una desviación estándar pequeña?", opts:["Gran variabilidad","Los datos están más concentrados alrededor de la media","Sesgo positivo","Curtosis alta"], correct:1, fb:"Una desviación estándar pequeña indica homogeneidad en los datos. En estudios psicológicos, esto sugiere que los participantes respondieron de manera similar."},
+      {q:"¿Qué ocurre cuando una distribución presenta sesgo positivo?", opts:["La cola se extiende hacia la izquierda","Es simétrica","La cola se extiende hacia la derecha","No tiene cola"], correct:2, fb:"El sesgo positivo es común en variables psicológicas como tiempos de reacción. Identificarlo ayuda a elegir el análisis estadístico adecuado."},
+      {q:"¿Qué ocurre cuando una distribución presenta sesgo negativo?", opts:["La cola se extiende hacia la izquierda","La cola se extiende hacia la derecha","Es perfectamente simétrica","No existe la cola"], correct:0, fb:"El sesgo negativo aparece frecuentemente en pruebas con efecto techo. Reconocerlo evita interpretaciones erróneas de los resultados."},
+      {q:"¿Qué evalúan las pruebas de normalidad?", opts:["La correlación entre variables","Si los datos se ajustan razonablemente a una distribución normal","El tamaño del efecto","La fiabilidad del instrumento"], correct:1, fb:"Las pruebas de normalidad (Shapiro-Wilk, Kolmogorov-Smirnov) son el primer paso para decidir si usar pruebas paramétricas o no paramétricas."},
+      {q:"¿Por qué es importante la normalidad en algunos análisis estadísticos?", opts:["Porque todos los datos son normales","Porque ciertos procedimientos paramétricos asumen normalidad","Porque facilita la recolección","Porque elimina outliers"], correct:1, fb:"Verificar la normalidad es esencial para la validez de pruebas como t de Student o ANOVA. Como profesional, esto guía tus decisiones metodológicas."},
+      {q:"¿Qué indica una curtosis cercana a la distribución normal?", opts:["Una forma leptocúrtica","Una forma platicúrtica","Una forma mesocúrtica","Una distribución bimodal"], correct:2, fb:"La curtosis mesocúrtica indica que la concentración de datos en las colas es similar a la normal, facilitando la aplicación de pruebas paramétricas estándar."},
+      {q:"Un artículo reporta una muestra de 15 participantes. ¿Por qué deben revisarse cuidadosamente los supuestos estadísticos?", opts:["Porque 15 es un número impar","Porque las muestras pequeñas son más sensibles a desviaciones de la normalidad","Porque no se puede calcular la media","Porque siempre se necesitan 30 participantes"], correct:1, fb:"Con muestras pequeñas, las violaciones de normalidad tienen mayor impacto. Como lector crítico de investigación, esto te alerta sobre posibles limitaciones."},
+      {q:"¿Qué establece el Teorema del Límite Central?", opts:["Que todos los datos son normales","Que la distribución de las medias muestrales tiende a ser normal cuando aumenta el tamaño de la muestra","Que la media siempre es cero","Que la varianza es constante"], correct:1, fb:"El TLC es fundamental: justifica el uso de pruebas paramétricas con muestras grandes, incluso cuando los datos originales no son perfectamente normales."},
+      {q:"Un estudio con 500 participantes utiliza pruebas paramétricas aunque los datos presentan ligera asimetría. ¿Cuál es la mejor explicación?", opts:["Es un error del investigador","El Teorema del Límite Central favorece la normalidad de la distribución muestral","La asimetría no existe","Se usaron pruebas no paramétricas"], correct:1, fb:"Con muestras grandes, el TLC garantiza que las medias muestrales se distribuyen normalmente, validando el uso de pruebas paramétricas."}
+    ];
+
+    const COLS = 4, ROWS = 3;
+    let currentPiece = 0;
+    let unlocked = new Array(12).fill(false);
+
+    function buildPuzzleGrid() {
+      const grid = document.getElementById('puzzle-grid');
+      grid.innerHTML = '';
+      for (let i = 0; i < 12; i++) {
+        const col = i % COLS;
+        const row = Math.floor(i / COLS);
+        const div = document.createElement('div');
+        
+        let stateClass = 'locked';
+        if (unlocked[i]) {
+          stateClass = 'unlocked';
+        } else if (i === currentPiece) {
+          stateClass = 'active';
+        }
+
+        div.className = `puzzle-piece relative flex items-center justify-center text-white font-gotham-bold text-lg ${stateClass}`;
+        div.style.backgroundImage = `url('${PUZZLE_IMAGE_URL}')`;
+        div.style.backgroundSize = `${COLS * 100}\%${ROWS * 100}%`;
+        div.style.backgroundPosition = `${(col / (COLS - 1)) * 100}\%${(row / (ROWS - 1)) * 100}%`;
+        div.dataset.index = i;
+
+        if (unlocked[i]) {
+          div.innerHTML = `<span class="check-badge">✓</span>`;
+        } else if (i === currentPiece) {
+          div.innerHTML = ``;
+          div.onclick = () => openQuestion(i);
+        } else {
+          div.innerHTML = ``;
+        }
+        grid.appendChild(div);
+      }
+    }
+
+    function updateProgress() {
+      const count = unlocked.filter(Boolean).length;
+      document.getElementById('progress-text').textContent = `${count}/12`;
+      document.getElementById('progress-fill').style.width = `${(count/12)*100}%`;
+      const hint = document.getElementById('hint-text');
+      if (count < 12) {
+        hint.textContent = `Pieza ${currentPiece + 1} de 12 — Haz clic en la pieza iluminada para continuar`;
+      } else {
+        hint.textContent = '';
+      }
+    }
+
+    function openQuestion(index) {
+      const modal = document.getElementById('question-modal');
+      const q = questions[index];
+      document.getElementById('q-number').textContent = `Pieza ${index + 1} de 12`;
+      document.getElementById('q-text').textContent = q.q;
+      document.getElementById('q-feedback').classList.add('hidden');
+      document.getElementById('q-next').classList.add('hidden');
+      const optsDiv = document.getElementById('q-options');
+      optsDiv.innerHTML = '';
+      q.opts.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'w-full text-left px-4 py-3 rounded-xl bg-gray-50 hover:bg-gray-100 text-[#06004c] font-gotham-light transition border border-gray-200';
+        btn.textContent = opt;
+        btn.onclick = () => handleAnswer(index, i, btn);
+        optsDiv.appendChild(btn);
+      });
+      modal.classList.remove('hidden');
+    }
+
+    function handleAnswer(qIndex, ansIndex, btn) {
+      const q = questions[qIndex];
+      const optsDiv = document.getElementById('q-options');
+      const fb = document.getElementById('q-feedback');
+      if (ansIndex === q.correct) {
+        btn.classList.remove('bg-gray-50');
+        btn.classList.add('bg-emerald-500','text-white','border-emerald-600');
+        [...optsDiv.children].forEach(b => b.disabled = true);
+        fb.textContent = q.fb;
+        fb.className = 'mt-4 text-sm font-gotham-light rounded-lg p-3 bg-emerald-50 text-emerald-900 border border-emerald-300';
+        fb.classList.remove('hidden');
+        document.getElementById('q-next').classList.remove('hidden');
+        unlocked[qIndex] = true;
+        currentPiece = qIndex + 1;
+      } else {
+        btn.classList.add('shake','bg-rose-100','border-rose-300','text-rose-900');
+        setTimeout(() => btn.classList.remove('shake'), 400);
+        fb.textContent = 'Intenta de nuevo. Piensa en cómo se aplica este concepto en la investigación.';
+        fb.className = 'mt-4 text-sm font-gotham-light rounded-lg p-3 bg-rose-50 text-rose-900 border border-rose-300';
+        fb.classList.remove('hidden');
+      }
+    }
+
+    function closePuzzleModal() {
+      document.getElementById('question-modal').classList.add('hidden');
+      buildPuzzleGrid();
+      updateProgress();
+      if (unlocked.every(Boolean)) {
+        setTimeout(() => {
+          document.getElementById('puzzle-grid').classList.add('celebrate');
+          document.getElementById('completion-screen').classList.remove('hidden');
+        }, 600);
+      }
+    }
+
+    function resetGame() {
+      currentPiece = 0;
+      unlocked.fill(false);
+      document.getElementById('completion-screen').classList.add('hidden');
+      document.getElementById('puzzle-grid').classList.remove('celebrate');
+      buildPuzzleGrid();
+      updateProgress();
+    }
+
+    // Lógica ALFA_DEMO_7 (Integremos los puntos - AHORA PÁGINA 7)
+    const MAX_CHARS = 700;
+
+    function updateCharCount() {
+      const textarea = document.getElementById('user-response');
+      const counter = document.getElementById('char-counter');
+      const remaining = MAX_CHARS - textarea.value.length;
+      counter.textContent = `Caracteres restantes: ${remaining}*`;
+    }
+
+    function copyResponse() {
+      const textarea = document.getElementById('user-response');
+      if (!textarea.value.trim()) {
+        showToast('Escribe una respuesta antes de copiar.');
+        return;
+      }
+      
+      navigator.clipboard.writeText(textarea.value).then(() => {
+        showToast('¡Respuesta copiada al portapapeles!');
+      }).catch(() => {
+        textarea.select();
+        document.execCommand('copy');
+        showToast('¡Respuesta copiada!');
+      });
+    }
+
+    function toggleEvaluation() {
+      const section = document.getElementById('evaluation-section');
+      section.classList.toggle('hidden');
+      if (!section.classList.contains('hidden')) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function toggleCheckbox(element) {
+      element.classList.toggle('checked');
+    }
+
+    // Lógica ALFA_DEMO_8_2 (Referencias - PÁGINA 9)
+    const referencesText = `Das, K., & Imon, A. (2016). A Brief Review of Tests for Normality. American Journal of Theoretical and Applied Statistics, 5, 5. https://doi.org/10.11648/j.ajtas.20160501.12
+
+Efron, B., & Tibshirani, R. (1986). Métodos Bootstrap para Errores Estándar, Intervalos de Confianza y Otras Medidas de Precisión Estadística. Ciencia Estadística, 1, 54-75. https://doi.org/10.1214/ss/1177013815
+
+Gelman, A. (2023). What is a standard error?. Journal of econometrics, 237. https://doi.org/10.1016/j.jeconom.2023.105516
+
+Gosselin, R.-D. (2024). Testing for normality: a user's (cautionary) guide. Laboratory Animals, 58, 433 - 437. https://doi.org/10.1177/00236772241276808
+
+Howell, D. C. (2010). The normal distribution. En Statistical methods for psychology (7.ª ed.). Wadsworth, Cengage Learning.
+
+Kwak, S., & Kim, J. H. (2017). Central limit theorem: the cornerstone of modern statistics. Korean Journal of Anesthesiology, 70, 144 - 156. https://doi.org/10.4097/kjae.2017.70.2.144
+
+Nascimento, J., Batista, L. G., Barbosa, W. F., Belo, L. P., Silva, J., Costa, G. S., & Emiliano, P. (2024). Data transformations for ANOVA assumption violations in agrarian sciences subfields: a systematic review, simulation study, and practical guidelines. REVISTA DELOS. https://doi.org/10.55905/rdelosv17.n61-138
+
+Yap, B. W., & Sim, C. H. (2011). Comparisons of various types of normality tests. Journal of Statistical Computation and Simulation, 81(12), 2141-2155. https://doi.org/10.1080/00949655.2010.520163
+
+Zhang, X., Astivia, O. L. O., Kroc, E., & Zumbo, B. (2022). Cómo pensar con claridad sobre el teorema del límite central. Métodos psicológicos. https://doi.org/10.1037/met0000448`;
+
+    function copyAllReferences() {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(referencesText).then(() => {
+          showToast('¡Referencias copiadas al portapapeles!');
+        }).catch(() => {
+          fallbackCopyText(referencesText);
+        });
+      } else {
+        fallbackCopyText(referencesText);
+      }
+    }
+
+    function fallbackCopyText(text) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        showToast('¡Referencias copiadas al portapapeles!');
+      } catch (err) {
+        console.error('Error al copiar el texto', err);
+      }
+      document.body.removeChild(textArea);
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // Inicializar Puzzle
+    buildPuzzleGrid();
+    updateProgress();
+  </script>
+</body>
+</html>
